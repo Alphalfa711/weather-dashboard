@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "chrome",
+            "name": "http://file:///C:/Users/nyziu/Desktop/Rutgets-materials/Challenges/module6-challenge%20weather-dashboard/weather-dashboard/index.html",
+            "request": "launch",
+            "url": "http://file:///C:/Users/nyziu/Desktop/Rutgets-materials/Challenges/module6-challenge%20weather-dashboard/weather-dashboard/index.html"
+        }
+    ]
+}

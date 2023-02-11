@@ -1,17 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="./assets/css/style.css">
-
-    <title>Weather</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <!-- CSS -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <!-- Fontawsome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+  <title>Weather</title>
 </head>
-<body>
-    
 
-    <script src="./assets/js/script.js"></script>
+<body>
+  <div class="container-xxl" id="container">
+
+
+    <!-- Hamburger style button -->
+    <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive"
+      aria-controls="offcanvasResponsive"><i class="fa-solid fa-bars"></i></button>
+
+    <!-- Offcanvas modal bootstrap -->
+    <section class="offcanvas-lg offcanvas-start dark" tabindex="-1" id="offcanvasResponsive"
+      aria-labelledby="offcanvasResponsiveLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasResponsiveLabel"></h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+          data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <!-- Search menu goes here -->
+        <div class="dark m-5">
+          <div class="input-group mb-3">
+            <input id='searchText' type="text" class="form-control" autocomplete="off" placeholder="Search location"
+              aria-label="Search location" aria-describedby="basic-addon2">
+            <!-- <div class="input-group-append">
+              <button class="btn btn-warning" id="get-location" type="button">
+                <i class="fa-solid fa-location-crosshairs"></i>
+              </button>
+            </div> -->
+            <!-- <span class="input-group-text" id="basic-addon1"><button class="btn"><i class="fa-solid fa-xmark"></i></button></span> -->
+            <span class="input-group-text bg-warning" id="basic-addon1">
+              <button class="btn" id="get-location" type="button">
+              <i class="fa-solid fa-location-crosshairs"></i>
+              </button>
+            </span>
+          </div>
+          <button class="btn btn-warning w-100" id="searchBtn">Search</button>
+          <!-- Search history -->
+          <article class='mt-4' id="search-history">
+            <h3>Search history</h3>
+            <!-- <div class="input-group mb-3">
+              <input type="text" disabled class="form-control" placeholder="Matawan, NJ">
+              <span class="input-group-text" id="basic-addon1"><button class="btn"><i class="fa-solid fa-xmark"></i></button></span>
+              <button class="btn"><i class="fa-solid fa-xmark"></i></button>
+            </div> -->
+            <ul id="search-history">
+              <li data-index="0">Matawan, NJ<button><i class="fa-solid fa-xmark"></i></button></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+
+  <script src="./assets/js/script.js"></script>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
+
 </html>
