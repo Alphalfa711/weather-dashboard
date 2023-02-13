@@ -114,7 +114,7 @@ function renderResults(data) {
 
   weatherResultsContainer.appendChild(weatherResultsTitle);
 
-  searchedArray.push(data.name)
+  searchedArray.push(data.name);
   updateLocalStorage();
   renderLocalStorage();
 }
