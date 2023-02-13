@@ -9,17 +9,22 @@ function callback(data) {
   getResults(data.latitude, data.longitude, false);
 }
 
-var script = document.createElement('script');
-script.type = 'text/javascript';
-script.src = 'https://geolocation-db.com/jsonp';
-var h = document.getElementsByTagName('script')[0];
-h.parentNode.insertBefore(script, h);
+function getApproximateLocation () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = 'https://geolocation-db.com/jsonp';
+  var h = document.getElementsByTagName('script')[0];
+  h.parentNode.insertBefore(script, h);
+}
 
 
 
 var searchText = document.getElementById('searchText');
 var searchBtn = document.getElementById('searchBtn');
-var searchedArray = [];
+var searchedArray = JSON.parse(localStorage.getItem("searched"));
+console.log("🚀 ~ file: script.js:23 ~ searchedArray", searchedArray)
+
+
 
 /**
 * Allow the browser to get your location 
@@ -179,7 +184,7 @@ function renderLocalStorage() {
 
   searchedArray = JSON.parse(localStorage.getItem("searched"));
 
-  if (searchedArray.length > 0) {
+  if (searchedArray.length) {
     searchedArray.forEach((element, index) => {
       var historyListItem = document.createElement('li')
       historyListItem.setAttribute('data-index', index);
@@ -196,5 +201,5 @@ function renderLocalStorage() {
 
 
 
-
+getApproximateLocation();
 renderLocalStorage();
