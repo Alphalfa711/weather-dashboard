@@ -1,12 +1,14 @@
 :root {
     --dark-background: #474E68;
     --dark-background-font: #e5e1e1;
+    --light-background: #c5c5c5;
+    --font-color: #1f1f29;
 }
 
 body {
     /* background-color: #F5F5F5; */
     background-color: var(--dark-background-font);
-    color: #1f1f29;
+    color: var(--font-color);
     font-family: sans-serif;
 }
 
@@ -15,27 +17,36 @@ body {
     color: var(--dark-background-font);
 }
 
-#search-history ul{
-    list-style-type: none;
-    padding: 0;
-
+.light {
+    background-color: var(--light-background);
 }
 
-#search-history li {
-    border: 1px solid var(--dark-background-font);
+
+#history-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#history-list li {
+    border: 1px solid var(--font-color);
     border-radius: 5px;
     padding: .5rem;
 }
 
-#search-history li button {
+#history-list li i {
     float: right;
     border: none;
-    background-color: var(--dark-background);
-    color: var(--dark-background-font);
-    transition: .2s;
+    background-color: rgba(255, 255, 255, 0);
 }
 
-#search-history li button:hover {
-    color: #F05454;
-    transition: .2s;
+#history-list li:hover {
+    cursor: pointer;
+    color: #f0ad4e;
+    border-color: #f0ad4e;
 }
+
+#history-list li i:hover {
+    color: #F05454;
+}
+

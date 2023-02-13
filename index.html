@@ -16,60 +16,45 @@
 </head>
 
 <body>
-  <div class="container-xxl" id="container">
-
-
+  <div class="container-xxl d-flex bg-primary" id="container">
     <!-- Hamburger style button -->
     <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive"
       aria-controls="offcanvasResponsive"><i class="fa-solid fa-bars"></i></button>
 
     <!-- Offcanvas modal bootstrap -->
-    <section class="offcanvas-lg offcanvas-start dark" tabindex="-1" id="offcanvasResponsive"
+    <!-- <section class="offcanvas-lg offcanvas-start dark" tabindex="-1" id="offcanvasResponsive" -->
+    <section class="offcanvas-lg offcanvas-start" tabindex="-1" id="offcanvasResponsive"
       aria-labelledby="offcanvasResponsiveLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasResponsiveLabel"></h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
           data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <!-- Search menu goes here -->
-        <div class="dark m-5">
+        <div class="mt-4" id="search-container">
           <div class="input-group mb-3">
-            <input id='searchText' type="text" class="form-control" autocomplete="off" placeholder="Search location"
+            <input id='searchText' type="text" class="form-control border border-secondary" autocomplete="off" placeholder="Search location"
               aria-label="Search location" aria-describedby="basic-addon2">
-            <!-- <div class="input-group-append">
-              <button class="btn btn-warning" id="get-location" type="button">
-                <i class="fa-solid fa-location-crosshairs"></i>
-              </button>
-            </div> -->
-            <!-- <span class="input-group-text" id="basic-addon1"><button class="btn"><i class="fa-solid fa-xmark"></i></button></span> -->
-            <span class="input-group-text bg-warning" id="basic-addon1">
-              <button class="btn" id="get-location" type="button">
-              <i class="fa-solid fa-location-crosshairs"></i>
-              </button>
+            <span class="input-group-text border border-secondary" id="basic-addon1">
+              <i class="fa-solid fa-location-crosshairs btn" id="get-location"></i>
             </span>
           </div>
-          <button class="btn btn-warning w-100" id="searchBtn">Search</button>
+          <button class="btn btn-warning w-100 border border-secondary" id="searchBtn">Search</button>
           <!-- Search history -->
-          <article class='mt-4' id="search-history">
+          <article class='mt-4' id="history-container">
             <h3>Search history</h3>
-            <!-- <div class="input-group mb-3">
-              <input type="text" disabled class="form-control" placeholder="Matawan, NJ">
-              <span class="input-group-text" id="basic-addon1"><button class="btn"><i class="fa-solid fa-xmark"></i></button></span>
-              <button class="btn"><i class="fa-solid fa-xmark"></i></button>
-            </div> -->
-            <ul id="search-history">
-              <li data-index="0">Matawan, NJ<button><i class="fa-solid fa-xmark"></i></button></li>
+            <ul id="history-list">
+              <!-- <li data-index="0">Matawan, NJ<i class="fa-solid fa-xmark btn"></i></li> -->
             </ul>
           </article>
         </div>
       </div>
     </section>
-
-
-
-
-
+    <!-- Weather results -->
+    <section id="weather-results" class="mt-4 mx-4 px-4 border border-secondary rounded shadow">
+      
+    </section>
   </div>
 
   <!-- Scripts -->
