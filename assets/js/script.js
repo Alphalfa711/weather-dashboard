@@ -196,6 +196,8 @@ function renderLocalStorage() {
       historyListItem.appendChild(closeIcon);
       historyList.appendChild(historyListItem)
     });
+  } else {
+    searchedArray = [];
   }
 }
 
