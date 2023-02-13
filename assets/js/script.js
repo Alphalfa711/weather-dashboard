@@ -1,3 +1,22 @@
+/**
+ * Get approximate location
+ * source https://www.geolocation-db.com/documentation
+ * @param {object} data 
+ */
+
+// function callback(data) {
+//   console.log(data)
+//   getResults(data.latitude, data.longitude);
+// }
+
+// var script = document.createElement('script');
+// script.type = 'text/javascript';
+// script.src = 'https://geolocation-db.com/jsonp';
+// var h = document.getElementsByTagName('script')[0];
+// h.parentNode.insertBefore(script, h);
+
+
+
 var searchText = document.getElementById('searchText');
 var searchBtn = document.getElementById('searchBtn');
 var searchedArray = [];
@@ -13,7 +32,11 @@ locationBtn.addEventListener("click", () => {
 
   navigator.geolocation.getCurrentPosition((position) => {
     let lat = position.coords.latitude;
+    console.log("🚀 ~ file: script.js:35 ~ navigator.geolocation.getCurrentPosition ~ lat", lat)
     let long = position.coords.longitude;
+    console.log("🚀 ~ file: script.js:37 ~ navigator.geolocation.getCurrentPosition ~ long", long)
+
+    
 
     // Pass current latitude and longitude to function that will handle API request
     getResults(lat, long);
@@ -41,7 +64,7 @@ searchBtn.addEventListener('click', function () {
  */
 function getCoordinates(searchQuery) {
 
-  var apiUrlQuery = 'http://api.openweathermap.org/geo/1.0/direct?q=' + searchQuery + '&limit=5&appid=e97ee8621afbdf55e3cfc6d7bc09d848'
+  var apiUrlQuery = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchQuery + '&limit=5&appid=e97ee8621afbdf55e3cfc6d7bc09d848'
 
   fetch(apiUrlQuery)
     .then(function (response) {
