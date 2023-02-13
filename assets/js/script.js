@@ -4,16 +4,16 @@
  * @param {object} data 
  */
 
-// function callback(data) {
-//   console.log(data)
-//   getResults(data.latitude, data.longitude);
-// }
+function callback(data) {
+  console.log(data)
+  getResults(data.latitude, data.longitude, false);
+}
 
-// var script = document.createElement('script');
-// script.type = 'text/javascript';
-// script.src = 'https://geolocation-db.com/jsonp';
-// var h = document.getElementsByTagName('script')[0];
-// h.parentNode.insertBefore(script, h);
+var script = document.createElement('script');
+script.type = 'text/javascript';
+script.src = 'https://geolocation-db.com/jsonp';
+var h = document.getElementsByTagName('script')[0];
+h.parentNode.insertBefore(script, h);
 
 
 
@@ -39,7 +39,7 @@ locationBtn.addEventListener("click", () => {
     
 
     // Pass current latitude and longitude to function that will handle API request
-    getResults(lat, long);
+    getResults(lat, long, false);
   });
 });
 
@@ -76,7 +76,7 @@ function getCoordinates(searchQuery) {
     }).then(function (data) {
       console.log(data)
       //! Test pass first results to open weather
-      getResults(data[0].lat, data[0].lon)
+      getResults(data[0].lat, data[0].lon, true)
     })
     .catch(function (error) {
       alert("Unable to connect to Open Weather");
@@ -85,7 +85,7 @@ function getCoordinates(searchQuery) {
 };
 
 
-function getResults(lat, long) {
+function getResults(lat, long, updateHistory) {
 
 
   let apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='
@@ -113,6 +113,12 @@ function getResults(lat, long) {
       if (response.ok) {
         response.json().then(function (data) {
           console.log(data);
+          
+          if (updateHistory) {
+            searchedArray.push(data.name);
+            updateLocalStorage();
+            renderLocalStorage();
+          }
           renderResults(data);
         })
       } else {
@@ -136,10 +142,7 @@ function renderResults(data) {
   weatherResultsTitle.textContent = data.name;
 
   weatherResultsContainer.appendChild(weatherResultsTitle);
-
-  searchedArray.push(data.name);
-  updateLocalStorage();
-  renderLocalStorage();
+ 
 }
 
 
