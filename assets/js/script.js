@@ -184,7 +184,7 @@ function renderLocalStorage() {
 
   searchedArray = JSON.parse(localStorage.getItem("searched"));
 
-  if (searchedArray.length) {
+  if (searchedArray) {
     searchedArray.forEach((element, index) => {
       var historyListItem = document.createElement('li')
       historyListItem.setAttribute('data-index', index);
