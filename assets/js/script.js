@@ -21,8 +21,9 @@ function getApproximateLocation () {
 
 var searchText = document.getElementById('searchText');
 var searchBtn = document.getElementById('searchBtn');
+var weatherResultsContainer = document.getElementById('weather-results');
 var searchedArray = JSON.parse(localStorage.getItem("searched"));
-console.log("🚀 ~ file: script.js:23 ~ searchedArray", searchedArray)
+
 
 
 
@@ -103,7 +104,7 @@ function getResults(lat, long, updateHistory) {
 
 
   // current weather        
-  currentApi = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + '&appid=e97ee8621afbdf55e3cfc6d7bc09d848';
+  currentApi = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
 
   // var docBody = document.getElementById('container')
   // docBody.appendChild(mapPic)
@@ -138,16 +139,22 @@ function getResults(lat, long, updateHistory) {
  * @param {object} data 
  */
 function renderResults(data) {
+  console.log("🚀 ~ file: script.js:142 ~ renderResults ~ data", data)
   // for (let i = 0; i < data.)
-  console.log('hello');
-
-  let weatherResultsContainer = document.getElementById('weather-results');
+  // console.log(data);
 
   let weatherResultsTitle = document.createElement('h2');
   weatherResultsTitle.textContent = data.name;
 
   weatherResultsContainer.appendChild(weatherResultsTitle);
- 
+  
+  let weatherIcon = document.createElement('img');
+      weatherIcon.setAttribute('alt', "weather icon");
+      // weatherIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + data.weather + '@2x.png')
+      weatherIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png');
+
+  weatherResultsContainer.appendChild(weatherIcon);
+
 }
 
 
