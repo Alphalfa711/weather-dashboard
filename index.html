@@ -43,30 +43,24 @@
 
           <div class="input-group mb-3">
             <label class="input-group-text" for="inputGroupSelect01">State</label>
-            <select class="form-select" id="inputGroupSelect01">
-              <option selected value="US">New Jersey</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select class="form-select" id="states-list">
+              
             </select>
           </div>     
 
           <div class="input-group mb-3">
             <label class="input-group-text" for="inputGroupSelect01">Country</label>
-            <select class="form-select" id="inputGroupSelect01">
-              <option selected value="US">US</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select class="form-select" id="countries-list">
+              
             </select>
           </div>     
 
 
           <button class="btn btn-warning w-100 border border-secondary" id="searchBtn">Search</button>
-          <!-- Search history -->
-          <article class='mt-4' id="history-container">
-            <h3>Search history</h3>
-            <ul id="history-list">
+          <!-- Favorites -->
+          <article class='mt-4' id="favorites-container">
+            <h3>Favorite locations</h3>
+            <ul id="favorites-list">
               <!-- <li data-index="0">Matawan, NJ<i class="fa-solid fa-xmark btn"></i></li> -->
             </ul>
           </article>
@@ -87,6 +81,8 @@
     crossorigin="anonymous"></script>
 
   <!-- <script src="./assets/js/location.js"></script> -->
+  <script src="./assets/js/states.js"></script>
+  <script src="./assets/js/countries.js"></script>
   <script src="./assets/js/script.js"></script>
 
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

@@ -91,7 +91,7 @@ function getCoordinates(searchQuery) {
 };
 
 
-function getResults(lat, long, updateHistory) {
+function getResults(lat, long, updateFavorites) {
 
 
   let apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='
@@ -120,7 +120,7 @@ function getResults(lat, long, updateHistory) {
         response.json().then(function (data) {
           console.log(data);
           
-          if (updateHistory) {
+          if (updateFavorites) {
             searchedArray.push(data.name);
             updateLocalStorage();
             renderLocalStorage();
@@ -159,12 +159,12 @@ function renderResults(data) {
 
 
 /**
- * Search history
+ * Search favorites
  */
-var historyContainer = document.getElementById('history-container');
-var historyList = document.getElementById('history-list')
+var favoritesContainer = document.getElementById('favorites-container');
+var favoritesList = document.getElementById('favorites-list')
 
-historyContainer.addEventListener('click', function (event) {
+favoritesContainer.addEventListener('click', function (event) {
   let element = event.target;
 
   if (element.matches('i') === true) {
@@ -187,21 +187,21 @@ function updateLocalStorage() {
 
 
 function renderLocalStorage() {
-  historyList.innerHTML = "";
+  favoritesList.innerHTML = "";
 
   searchedArray = JSON.parse(localStorage.getItem("searched"));
 
   if (searchedArray) {
     searchedArray.forEach((element, index) => {
-      var historyListItem = document.createElement('li')
-      historyListItem.setAttribute('data-index', index);
-      historyListItem.setAttribute('class', 'my-2')
-      historyListItem.textContent = element;
+      var favoritesListItem = document.createElement('li')
+      favoritesListItem.setAttribute('data-index', index);
+      favoritesListItem.setAttribute('class', 'my-2')
+      favoritesListItem.textContent = element;
       var closeIcon = document.createElement('i');
       closeIcon.setAttribute('class', 'fa-solid fa-xmark btn');
 
-      historyListItem.appendChild(closeIcon);
-      historyList.appendChild(historyListItem)
+      favoritesListItem.appendChild(closeIcon);
+      favoritesList.appendChild(favoritesListItem)
     });
   } else {
     searchedArray = [];
