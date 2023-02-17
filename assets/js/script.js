@@ -5,7 +5,8 @@
  */
 
 function callback(data) {
-  console.log(data)
+  console.log("🚀 ~ file: script.js:8 ~ callback ~ data", data)
+  formatSearchFields(data);  
   getResults(data.latitude, data.longitude, false);
 }
 
@@ -17,12 +18,18 @@ function getApproximateLocation () {
   h.parentNode.insertBefore(script, h);
 }
 
+function formatSearchFields(data) {
+  if (data.country_code === "US") {
+    console.log("US")
+  }
+}
 
 
-var searchText = document.getElementById('searchText');
-var searchBtn = document.getElementById('searchBtn');
-var weatherResultsContainer = document.getElementById('weather-results');
-var searchedArray = JSON.parse(localStorage.getItem("searched"));
+
+const searchText = document.getElementById('searchText');
+const searchBtn = document.getElementById('searchBtn');
+const weatherResultsContainer = document.getElementById('weather-results');
+let favoritesArray = JSON.parse(localStorage.getItem("favorites"));
 
 
 
@@ -121,7 +128,7 @@ function getResults(lat, long, updateFavorites) {
           console.log(data);
           
           if (updateFavorites) {
-            searchedArray.push(data.name);
+            favoritesArray.push(data.name);
             updateLocalStorage();
             renderLocalStorage();
           }
@@ -169,7 +176,7 @@ favoritesContainer.addEventListener('click', function (event) {
 
   if (element.matches('i') === true) {
     let index = element.parentElement.getAttribute("data-index");
-    searchedArray.splice(index, 1);
+    favoritesArray.splice(index, 1);
 
 
     updateLocalStorage();
@@ -182,17 +189,17 @@ favoritesContainer.addEventListener('click', function (event) {
 //todo update local storage
 //todo render local storage
 function updateLocalStorage() {
-  localStorage.setItem("searched", JSON.stringify(searchedArray));
+  localStorage.setItem("favorites", JSON.stringify(favoritesArray));
 }
 
 
 function renderLocalStorage() {
   favoritesList.innerHTML = "";
 
-  searchedArray = JSON.parse(localStorage.getItem("searched"));
+  favoritesArray = JSON.parse(localStorage.getItem("favorites"));
 
-  if (searchedArray) {
-    searchedArray.forEach((element, index) => {
+  if (favoritesArray) {
+    favoritesArray.forEach((element, index) => {
       var favoritesListItem = document.createElement('li')
       favoritesListItem.setAttribute('data-index', index);
       favoritesListItem.setAttribute('class', 'my-2')
@@ -204,7 +211,7 @@ function renderLocalStorage() {
       favoritesList.appendChild(favoritesListItem)
     });
   } else {
-    searchedArray = [];
+    favoritesArray = [];
   }
 }
 

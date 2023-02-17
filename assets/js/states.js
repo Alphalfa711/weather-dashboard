@@ -64,7 +64,7 @@ let statesList = document.getElementById('states-list')
     
     for (let state in usStates) {
         let stateListItem = document.createElement('option');
-            stateListItem.value = state;
+            stateListItem.value = usStates[state];
             stateListItem.textContent = usStates[state];
 
         statesList.appendChild(stateListItem);
