@@ -24,7 +24,8 @@
   <!-- <div class="container-xxl d-flex justify-content-center" id="container"> bg-primary -->
   <div class="container" id="container">
     <div class="row">
-      <div class="col-3">
+      <!-- <div class="col-3"> -->
+      <div class="col-md-12 col-lg-4 bg-warning">
     <!-- Offcanvas modal bootstrap -->
     <section class="offcanvas-lg offcanvas-start" tabindex="-1" id="offcanvasResponsive"
       aria-labelledby="offcanvasResponsiveLabel">
@@ -35,7 +36,7 @@
       </div>
       <div class="offcanvas-body">
         <!-- Search menu goes here -->
-        <div class="mt-4" id="search-container">
+        <div class="mt-4 bg-primary" id="search-container">
           <div class="input-group mb-3">
             <input id='searchText' type="text" class="form-control border border-secondary" autocomplete="off" placeholder="Search location"
               aria-label="Search location" aria-describedby="basic-addon2">
@@ -56,18 +57,20 @@
       </div>
     </section>
       </div>
-    <div class="col-lg-8">
+    <!-- <div class="col-lg-8"> -->
+    <div class="col bg-primary">
     <!-- Weather results -->
     <!-- <section id="current-weather-container" class="mt-4 ms-4 px-4 border border-secondary rounded shadow bg-primary"> -->
-    <section id="current-weather-container" class="mt-4 ms-4 px-4 pb-4 border border-dark rounded shadow bg-dark text-light">
+    <section id="current-weather-container" class="mt-4 ms-md-4 px-4 pb-4 border border-dark rounded shadow bg-dark text-light">
       
-      <div id="current-weather-header" class="d-flex justify-content-between align-items-center">
+      <div id="current-weather-header" class="d-flex justify-content-between align-items-center mb-5 mb-md-0">
         
       </div>      
-      <div id="current-weather-body" class="d-flex justify-content-between align-items-center gap-3">
+      <div id="current-weather-body" class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-5">
         <div style="font-size: 7.5rem; font-weight: bold; line-height: 0;">
           26&#176C
         </div>
+        <div>
         <table>
           <tbody>
             <tr>
@@ -86,7 +89,8 @@
               <td>1013hPs</td>
             </tr>
           </tbody>
-        </table>            
+        </table>  
+      </div>          
         <!-- </div> -->
       </div>
     </section>
