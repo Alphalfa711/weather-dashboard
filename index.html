@@ -16,12 +16,15 @@
 </head>
 
 <body>
-  <div class="container-xxl d-flex " id="container"> <!-- bg-primary-->
-    <!-- Hamburger style button -->
-    <nav>
-      <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive"
-        aria-controls="offcanvasResponsive"><i class="fa-solid fa-bars"></i></button>
-    </nav>
+  <!-- Hamburger style button -->
+  <nav>
+    <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive"
+    aria-controls="offcanvasResponsive"><i class="fa-solid fa-bars"></i></button>
+  </nav>
+  <!-- <div class="container-xxl d-flex justify-content-center" id="container"> bg-primary -->
+  <div class="container" id="container">
+    <div class="row">
+      <div class="col-3">
     <!-- Offcanvas modal bootstrap -->
     <section class="offcanvas-lg offcanvas-start" tabindex="-1" id="offcanvasResponsive"
       aria-labelledby="offcanvasResponsiveLabel">
@@ -39,22 +42,7 @@
             <span class="input-group-text border border-secondary" id="basic-addon1">
               <i class="fa-solid fa-location-crosshairs btn" id="get-location"></i>
             </span>
-          </div>
-
-          <div class="input-group mb-3">
-            <label class="input-group-text" for="inputGroupSelect01">State</label>
-            <select class="form-select" id="states-list">
-              
-            </select>
-          </div>     
-
-          <div class="input-group mb-3">
-            <label class="input-group-text" for="inputGroupSelect01">Country</label>
-            <select class="form-select" id="countries-list">
-              
-            </select>
-          </div>     
-
+          </div>    
 
           <button class="btn btn-warning w-100 border border-secondary" id="searchBtn">Search</button>
           <!-- Favorites -->
@@ -67,10 +55,43 @@
         </div>
       </div>
     </section>
+      </div>
+    <div class="col-lg-8">
     <!-- Weather results -->
-    <section id="weather-results" class="mt-4 mx-4 px-4 border border-secondary rounded shadow">
+    <!-- <section id="current-weather-container" class="mt-4 ms-4 px-4 border border-secondary rounded shadow bg-primary"> -->
+    <section id="current-weather-container" class="mt-4 ms-4 px-4 pb-4 border border-dark rounded shadow bg-dark text-light">
       
+      <div id="current-weather-header" class="d-flex justify-content-between align-items-center">
+        
+      </div>      
+      <div id="current-weather-body" class="d-flex justify-content-between align-items-center gap-3">
+        <div style="font-size: 7.5rem; font-weight: bold; line-height: 0;">
+          26&#176C
+        </div>
+        <table>
+          <tbody>
+            <tr>
+              <td>Details</td>
+            </tr>
+            <tr>
+              <td>Feels Like:</td>
+              <td>26.02&#176C</td>
+            </tr>
+            <tr>
+              <td>Humidity:</td>
+              <td>11%</td>
+            </tr>
+            <tr>
+              <td>Pressure:</td>
+              <td>1013hPs</td>
+            </tr>
+          </tbody>
+        </table>            
+        <!-- </div> -->
+      </div>
     </section>
+    </div>
+    </div>
   </div>
 
 
@@ -80,9 +101,6 @@
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
 
-  <!-- <script src="./assets/js/location.js"></script> -->
-  <script src="./assets/js/states.js"></script>
-  <script src="./assets/js/countries.js"></script>
   <script src="./assets/js/script.js"></script>
 
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

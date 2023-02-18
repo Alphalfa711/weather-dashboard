@@ -28,7 +28,8 @@ function formatSearchFields(data) {
 
 const searchText = document.getElementById('searchText');
 const searchBtn = document.getElementById('searchBtn');
-const weatherResultsContainer = document.getElementById('weather-results');
+const currentWeatherContainer = document.getElementById('current-weather-container');
+const currentWeatherHeader = document.getElementById('current-weather-header') 
 let favoritesArray = JSON.parse(localStorage.getItem("favorites"));
 
 
@@ -122,6 +123,7 @@ function getResults(lat, long, updateFavorites) {
   // fetch(apiUrl)
   fetch(currentApi)
     .then(function (response) {
+      console.log("🚀 ~ file: script.js:125 ~ response", response)
       // console.log(response)
       if (response.ok) {
         response.json().then(function (data) {
@@ -152,15 +154,13 @@ function renderResults(data) {
 
   let weatherResultsTitle = document.createElement('h2');
   weatherResultsTitle.textContent = data.name;
-
-  weatherResultsContainer.appendChild(weatherResultsTitle);
+  currentWeatherHeader.appendChild(weatherResultsTitle);
   
   let weatherIcon = document.createElement('img');
       weatherIcon.setAttribute('alt', "weather icon");
-      // weatherIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + data.weather + '@2x.png')
-      weatherIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png');
-
-  weatherResultsContainer.appendChild(weatherIcon);
+      weatherIcon.setAttribute('src', 'http://openweathermap.org/img/wn/11d@2x.png')
+      // weatherIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png');
+  currentWeatherHeader.appendChild(weatherIcon);
 
 }
 
@@ -206,6 +206,7 @@ function renderLocalStorage() {
       favoritesListItem.textContent = element;
       var closeIcon = document.createElement('i');
       closeIcon.setAttribute('class', 'fa-solid fa-xmark btn');
+      
 
       favoritesListItem.appendChild(closeIcon);
       favoritesList.appendChild(favoritesListItem)

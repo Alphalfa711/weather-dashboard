@@ -1,7 +1,9 @@
 :root {
     --dark-background: #474E68;
     --dark-background-font: #e5e1e1;
+    /* --dark-background-font: #f9f9fa; */
     --light-background: #c5c5c5;
+    /* --light-background: #eeeff8; */
     --font-color: #1f1f29;
 }
 
@@ -37,7 +39,7 @@ body {
 #history-list li i {
     float: right;
     border: none;
-    background-color: rgba(255, 255, 255, 0);
+    /* background-color: rgba(255, 255, 255, 0); */
 }
 
 #history-list li:hover {
@@ -50,3 +52,6 @@ body {
     color: #F05454;
 }
 
+/* #current-weather-container {
+    max-width: 500px;
+} */
