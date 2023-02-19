@@ -128,7 +128,7 @@ function getCoordinates(searchQuery) {
 };
 
 
-function getResults(lat, long, updateFavorites) {
+function getResults(lat, long, updatesearchHistory) {
 
 
   const apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='
@@ -156,9 +156,14 @@ function getResults(lat, long, updateFavorites) {
       // console.log(response)
       if (response.ok) {
         response.json().then(function (data) {
-          // console.log(data);          
-          if (updateFavorites) {
-            favoritesArray.push(data.name);
+          console.log("🚀 ~ file: script.js:159 ~ data", data)
+          const locationObject = {
+            name: data.name,
+            lat: data.coord.lat,
+            lon: data.coord.lon
+          }
+          if (updatesearchHistory) {
+            searchHistoryArray.push(locationObject);
             updateLocalStorage();
             renderLocalStorage();
           }
@@ -200,15 +205,15 @@ console.log("🚀 ~ file: script.js:175 ~ renderResults ~ data", data)
 
 
 /**
- * Search favorites
+ * Search searchHistory
  */
 
-favoritesContainer.addEventListener('click', function (event) {
+searchHistoryContainer.addEventListener('click', function (event) {
   const element = event.target;
 
   if (element.matches('i') === true) {
     const index = element.parentElement.getAttribute("data-index");
-    favoritesArray.splice(index, 1);
+    searchHistoryArray.splice(index, 1);
 
 
     updateLocalStorage();
@@ -221,34 +226,55 @@ favoritesContainer.addEventListener('click', function (event) {
 //todo update local storage
 //todo render local storage
 function updateLocalStorage() {
-  localStorage.setItem("favorites", JSON.stringify(favoritesArray));
+  localStorage.setItem("searchHistory", JSON.stringify(searchHistoryArray));
 }
 
 
 function renderLocalStorage() {
-  favoritesList.innerHTML = "";
+  searchHistoryList.innerHTML = "";
 
-  favoritesArray = JSON.parse(localStorage.getItem("favorites"));
+  searchHistoryArray = JSON.parse(localStorage.getItem("searchHistory"));
 
-  if (favoritesArray) {
-    favoritesArray.forEach((element, index) => {
-      const favoritesListItem = document.createElement('li')
-      favoritesListItem.setAttribute('data-index', index);
-      favoritesListItem.setAttribute('class', 'my-2')
-      favoritesListItem.textContent = element;
+  if (searchHistoryArray) {
+    searchHistoryArray.forEach((element, index) => {
+      const searchHistoryListItem = document.createElement('li')
+      searchHistoryListItem.setAttribute('data-index', index);
+      searchHistoryListItem.setAttribute('data-lat', element.lat);
+      searchHistoryListItem.setAttribute('data-lon', element.lon);
+      searchHistoryListItem.setAttribute('class', 'list-group-item d-flex justify-content-between align-items-center my-1')
+      searchHistoryListItem.textContent = element.name;
       const closeIcon = document.createElement('i');
-      closeIcon.setAttribute('class', 'fa-solid fa-xmark btn');
-      
+      closeIcon.setAttribute('class', 'fa-solid fa-xmark');     
 
-      favoritesListItem.appendChild(closeIcon);
-      favoritesList.appendChild(favoritesListItem)
+      searchHistoryListItem.appendChild(closeIcon);
+      searchHistoryList.appendChild(searchHistoryListItem)
     });
   } else {
-    favoritesArray = [];
+    searchHistoryArray = [];
   }
 }
 
 
-
-getApproximateLocation();
 renderLocalStorage();
+
+if (favoriteLocation) {
+
+} else {
+  if (searchHistoryArray.length > 0) {
+    const lastArrayItem = searchHistoryArray.length - 1;
+    getResults(searchHistoryArray[lastArrayItem].lat, searchHistoryArray[lastArrayItem].lon, false);
+  } else {
+    getApproximateLocation();
+  }
+}
+
+searchHistoryContainer.addEventListener('click', function(event) {
+  
+  let element = event.target;
+  
+  if (element.matches('li')) {
+    const lat = element.getAttribute('data-lat');
+    const long = element.getAttribute('data-lon');
+    getResults(lat, long, false);
+  }
+})
