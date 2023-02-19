@@ -1,5 +1,7 @@
 :root {
     --dark-background: #474E68;
+    /* --dark-background-gradient: #393d4e; */
+    --dark-background-gradient: #2d303d;
     --dark-background-font: #e5e1e1;
     /* --dark-background-font: #f9f9fa; */
     --light-background: #c5c5c5;
@@ -11,11 +13,12 @@ body {
     /* background-color: #F5F5F5; */
     background-color: var(--dark-background-font);
     color: var(--font-color);
-    font-family: sans-serif;
+    font-family: sans-serif;    
 }
 
 .dark {
     background-color: var(--dark-background);
+    background-image: linear-gradient(90deg, var(--dark-background-gradient), var(--dark-background));
     color: var(--dark-background-font);
 }
 
@@ -52,6 +55,18 @@ body {
     color: #F05454;
 }
 
-#current-weather-container {
+/* #current-weather-container {
     max-width: 500px;
+} */
+
+.current-weather-card {
+    max-width: 400px;
+}
+
+.table {
+    max-width: 320px;
+}
+
+.table td {
+    padding: 0;
 }
