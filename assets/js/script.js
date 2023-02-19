@@ -89,8 +89,9 @@ locationBtn.addEventListener("click", () => {
 searchBtn.addEventListener('click', function () {
 
   var query = searchText.value;
-
+  
   if (query) {
+    searchText.value = "";
     getCoordinates(query);
   } else {
     alert("Search value cannot be blank")
