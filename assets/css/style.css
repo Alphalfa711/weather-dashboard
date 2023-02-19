@@ -11,16 +11,19 @@
 }
 
 body {
-    /* background-color: #F5F5F5; */
-    background-color: var(--dark-background-font);
+    background-color: #F5F5F5;
+    /* background-color: var(--dark-background-font); */
     color: var(--font-color);
     font-family: sans-serif;    
+    /* background-color: var(--dark-background); */
 }
 
 .dark {
-    background-color: var(--dark-background);
+    /* background-color: var(--dark-background); */
     background-image: linear-gradient(90deg, var(--dark-background-gradient), var(--dark-background));
+    /* background-color: rgba(255, 255, 255, .3); */
     color: var(--dark-background-font);
+    /* color: white; */
 }
 
 .light {
@@ -65,6 +68,8 @@ body {
 }
 
 .table {
+    /* color: var(--font-color); */
+    color: var(--dark-background-font);
     max-width: 320px;
 }
 
