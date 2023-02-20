@@ -63,6 +63,7 @@ function getApproximateLocation () {
   h.parentNode.insertBefore(script, h);
 }
 
+
 /**
 * Allow the browser to get your location 
 * source 
@@ -104,7 +105,7 @@ searchBtn.addEventListener('click', function () {
  */
 function getCoordinates(searchQuery) {
 
-  const apiUrlQuery = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchQuery + '&limit=5&appid=e97ee8621afbdf55e3cfc6d7bc09d848'
+  const apiUrlQuery = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchQuery + '&limit=5&appid=e97ee8621afbdf55e3cfc6d7bc09d848';
 
   fetch(apiUrlQuery)
     .then(function (response) {
@@ -130,21 +131,15 @@ function getCoordinates(searchQuery) {
 
 function getResults(lat, long, updatesearchHistory) {
 
-
+  // Forcast API call
   const apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='
     + lat + '&lon=' + long
     + '&appid=e97ee8621afbdf55e3cfc6d7bc09d848'
 
-  // let apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?id=paris,fr&appid=e97ee8621afbdf55e3cfc6d7bc09d848'
-  const apiUrl2 = 'https://api.openweathermap.org/data/2.5/forecast?id=Matawan,NJ,US&appid=e97ee8621afbdf55e3cfc6d7bc09d848'
-  // let apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=London&appid=e97ee8621afbdf55e3cfc6d7bc09d848'
-
-
-  // current weather        
+  
+  // current weather API call    
   const currentApi = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
 
-  // var docBody = document.getElementById('container')
-  // docBody.appendChild(mapPic)
 
   //! http://api.openweathermap.org/geo/1.0/zip?zip={zip code},{country code}&appid={API key}
   //! API call to get geo coordinates to pass into forcast call
@@ -152,22 +147,29 @@ function getResults(lat, long, updatesearchHistory) {
   // fetch(apiUrl)
   fetch(currentApi)
     .then(function (response) {
-      console.log("🚀 ~ file: script.js:125 ~ response", response)
+      // console.log("🚀 ~ file: script.js:125 ~ response", response)
       // console.log(response)
       if (response.ok) {
         response.json().then(function (data) {
-          console.log("🚀 ~ file: script.js:159 ~ data", data)
+          
           const locationObject = {
             name: data.name,
             lat: data.coord.lat,
             lon: data.coord.lon
           }
+
           if (updatesearchHistory) {
             searchHistoryArray.push(locationObject);
             updateLocalStorage();
             renderLocalStorage();
           }
-          renderResults(data);
+
+          // Show time of fetch
+          // Source https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
+          const fetchedTime = new Date(data.dt * 1000).toLocaleTimeString();
+          const fetchedDate = new Date(data.dt * 1000).toLocaleDateString();
+          // Update DOM elements
+          renderResults(data, fetchedTime, fetchedDate);
         })
       } else {
         alert('Error: ' + response.status)
@@ -180,13 +182,13 @@ function getResults(lat, long, updatesearchHistory) {
  * Update elements on the page
  * @param {object} data 
  */
-function renderResults(data) {
-console.log("🚀 ~ file: script.js:175 ~ renderResults ~ data", data)
+function renderResults(data, timeF, dateF) {
+// console.log("🚀 ~ file: script.js:191 ~ renderResults ~ timeFetched", timeFetched)
+// console.log("🚀 ~ file: script.js:175 ~ renderResults ~ data", data)
 
-  
+  fetchDate.textContent = dateF;
+  fetchTime.textContent = timeF;
   currentCity.textContent = data.name;
-  // currentState.textContent = searchedState;
-  currentCountry.textContent = data.sys.country;
   currentWeatherIcon.setAttribute('alt', "weather icon");
   currentWeatherIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png')
   currentDesc.textContent = data.weather[0].description;
@@ -196,11 +198,10 @@ console.log("🚀 ~ file: script.js:175 ~ renderResults ~ data", data)
   currentFeelsLike.textContent = Math.round(data.main.feels_like);
   currentHumidity.textContent = data.main.humidity;
   currentPressure.textContent = data.main.pressure;
-
-
+  currentWind.textContent = data.wind.speed;
 
   
-
+  
 }
 
 

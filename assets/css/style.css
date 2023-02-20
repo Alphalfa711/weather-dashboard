@@ -43,7 +43,7 @@ body {
 #searchHistory-list li {
     border: 1px solid var(--font-color);
     border-radius: 5px;
-    transition: .5s;
+    /* transition: .5s; */
 }
 
 /* #searchHistory-list li i {
@@ -57,7 +57,7 @@ body {
     /* color: #f0ad4e; */
     border-color: #f0ad4e;
     translate: 5px;
-    transition: .5s;
+    /* transition: .5s; */
 }
 
 #searchHistory-list li i:hover {
