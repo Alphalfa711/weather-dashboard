@@ -182,7 +182,7 @@ function getResults(lat, long, updateSearchHistory) {
           const fetchedTime = new Date(data.dt * 1000).toLocaleTimeString();
           const fetchedDate = new Date(data.dt * 1000).toLocaleDateString();
           // Update DOM elements
-          renderResults(data, fetchedTime, fetchedDate);
+          renderCurrentResults(data, fetchedTime, fetchedDate);
         })
       } else {
         alert('Error: ' + response.status)
@@ -195,7 +195,7 @@ function getResults(lat, long, updateSearchHistory) {
  * Update elements on the page
  * @param {object} data 
  */
-function renderResults(data, timeF, dateF) {
+function renderCurrentResults(data, timeF, dateF) {
 
   fetchDate.textContent = dateF;
   fetchTime.textContent = timeF;
@@ -266,16 +266,12 @@ function renderLocalStorage() {
 
 renderLocalStorage();
 
-if (favoriteLocation) {
-
-} else {
   if (searchHistoryArray.length > 0) {
     const lastArrayItem = searchHistoryArray.length - 1;
     getResults(searchHistoryArray[lastArrayItem].lat, searchHistoryArray[lastArrayItem].lon, false);
   } else {
     getApproximateLocation();
   }
-}
 
 searchHistoryContainer.addEventListener('click', function(event) {
   
