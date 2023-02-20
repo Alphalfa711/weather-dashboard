@@ -183,8 +183,6 @@ function getResults(lat, long, updatesearchHistory) {
  * @param {object} data 
  */
 function renderResults(data, timeF, dateF) {
-// console.log("🚀 ~ file: script.js:191 ~ renderResults ~ timeFetched", timeFetched)
-// console.log("🚀 ~ file: script.js:175 ~ renderResults ~ data", data)
 
   fetchDate.textContent = dateF;
   fetchTime.textContent = timeF;
