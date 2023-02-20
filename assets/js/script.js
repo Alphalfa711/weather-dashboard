@@ -92,7 +92,7 @@ searchBtn.addEventListener('click', function () {
   var query = searchText.value;
   
   if (query) {
-    searchText.value = "";
+    // searchText.value = "";
     getCoordinates(query);
   } else {
     alert("Search value cannot be blank")
@@ -117,10 +117,18 @@ function getCoordinates(searchQuery) {
     }).then(function (data) {
       console.log("🚀 ~ file: script.js:116 ~ data", data)
       //! Test pass first results to open weather
-      searchedCity = data[0].name;
-      searchedState = data[0].state;
-      searchedCountry = data[0].country;
-      getResults(data[0].lat, data[0].lon, true)
+      if (data.length === 1) {
+        searchText.value = "";
+        getResults(data[0].lat, data[0].lon, true)  
+      } else {
+        searchText.value = "";
+        getResults(data[0].lat, data[0].lon, true)  
+        // data.forEach(element => {
+        //   let resultOption = document.createElement('option');
+        //       resultOption.setAttribute('value', element.name);
+        //   searchDataList.appendChild(resultOption);
+        // });
+      }      
     })
     .catch(function (error) {
       alert("Unable to connect to Open Weather");
@@ -129,7 +137,7 @@ function getCoordinates(searchQuery) {
 };
 
 
-function getResults(lat, long, updatesearchHistory) {
+function getResults(lat, long, updateSearchHistory) {
 
   // Forcast API call
   const apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='
@@ -141,14 +149,9 @@ function getResults(lat, long, updatesearchHistory) {
   const currentApi = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
 
 
-  //! http://api.openweathermap.org/geo/1.0/zip?zip={zip code},{country code}&appid={API key}
-  //! API call to get geo coordinates to pass into forcast call
-
   // fetch(apiUrl)
   fetch(currentApi)
     .then(function (response) {
-      // console.log("🚀 ~ file: script.js:125 ~ response", response)
-      // console.log(response)
       if (response.ok) {
         response.json().then(function (data) {
           
@@ -158,10 +161,20 @@ function getResults(lat, long, updatesearchHistory) {
             lon: data.coord.lon
           }
 
-          if (updatesearchHistory) {
-            searchHistoryArray.push(locationObject);
-            updateLocalStorage();
-            renderLocalStorage();
+          if (updateSearchHistory) {
+
+            let newItem = true;
+            searchHistoryArray.forEach(element => {
+              if (data.name === element.name) {
+                newItem = false;
+              }
+            });
+
+            if (newItem) {
+              searchHistoryArray.push(locationObject);
+              updateLocalStorage();
+              renderLocalStorage();
+            }
           }
 
           // Show time of fetch
@@ -221,9 +234,6 @@ searchHistoryContainer.addEventListener('click', function (event) {
 
 })
 
-//todo if no lat or long / check for localstorate and use last location searched, if not local storage display modal with search - first time after user load the page
-//todo update local storage
-//todo render local storage
 function updateLocalStorage() {
   localStorage.setItem("searchHistory", JSON.stringify(searchHistoryArray));
 }

@@ -40,7 +40,7 @@ body {
     margin: 0;
 } */
 
-#searchHistory-list li {
+#search-history-list li {
     border: 1px solid var(--font-color);
     border-radius: 5px;
     /* transition: .5s; */
@@ -52,7 +52,7 @@ body {
     /* background-color: rgba(255, 255, 255, 0); */
 /* } */
 
-#searchHistory-list li:hover {
+#search-history-list li:hover {
     cursor: pointer;
     /* color: #f0ad4e; */
     border-color: #f0ad4e;
@@ -60,7 +60,7 @@ body {
     /* transition: .5s; */
 }
 
-#searchHistory-list li i:hover {
+#search-history-list li i:hover {
     color: #F05454;
 }
 

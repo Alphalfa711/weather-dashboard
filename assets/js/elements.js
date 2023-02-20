@@ -1,15 +1,14 @@
-let favoriteLocation = JSON.parse(localStorage.getItem('favoriteLocation'));
-
-let searchedCity;
-let searchedState;
-let searchedCountry;
-
-const searchText = document.getElementById('searchText');
-const searchBtn = document.getElementById('searchBtn');
-
 // Local storage
-let searchHistoryArray = JSON.parse(localStorage.getItem("searchHistory"));
+let searchHistoryArray = JSON.parse(localStorage.getItem("search-history"));
 
+// Search elements
+const searchText = document.getElementById('search-text');
+const searchBtn = document.getElementById('search-btn');
+const searchResultsList = document.getElementById('search-results-list')
+
+// searchHistory elements
+const searchHistoryContainer = document.getElementById('search-history-container');
+const searchHistoryList = document.getElementById('search-history-list')
 
 // Current weather elements
 const fetchDate = document.getElementById('fetch-date');
@@ -24,7 +23,3 @@ const currentFeelsLike = document.getElementById('current-feels-like');
 const currentHumidity = document.getElementById('current-humidity'); 
 const currentPressure = document.getElementById('current-pressure');
 const currentWind = document.getElementById('current-wind'); 
-
-// searchHistory elements
-const searchHistoryContainer = document.getElementById('searchHistory-container');
-const searchHistoryList = document.getElementById('searchHistory-list')
