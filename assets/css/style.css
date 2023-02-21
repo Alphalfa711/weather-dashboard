@@ -14,10 +14,15 @@
 
 body {
     /* background-color: #F5F5F5; */
-    background-color: var(--light-background);
+    /* background-color: var(--light-background); */
+    background-image: linear-gradient(90deg, var(--dark-background-gradient), var(--dark-background));
+    color: var(--dark-background-font);
+    
+
     /* background-color: var(--dark-background-font); */
-    color: var(--font-color);
-    font-family: sans-serif;    
+    /* color: var(--font-color); */
+    /* font-family: sans-serif;     */
+    font-family: 'Questrial', sans-serif;
     /* background-color: var(--dark-background); */
 }
 
@@ -69,7 +74,8 @@ body {
 } */
 
 .current-weather-card {
-    max-width: 400px;
+    /* max-width: 400px; */
+    max-width: 420px;
 }
 
 .table {
@@ -85,4 +91,8 @@ body {
 /* History item close icon */
 .fa-solid.fa-xmark:hover {
     cursor: pointer;
+}
+
+.transparent {
+    background-color: rgba(0, 0, 0, .2);
 }

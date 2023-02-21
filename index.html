@@ -5,6 +5,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -17,11 +21,11 @@
 
 <body>
   <div class="container px-0" id="container">
-    <header class="d-flex align-items-center border-lg rounded-lg dark m-0">
+    <header class="d-flex align-items-center border-lg rounded-lg dark- m-0 p-3">
     <!-- Hamburger style button -->
     <button class="btn d-lg-none text-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive"
       aria-controls="offcanvasResponsive"><i class="fa-solid fa-bars"></i></button>    
-    <h2 class="d-none d-lg-inline-block fw-bold p-2 m-0 ">Weather Dashboard</h2>
+    <h2 class="d-none d-lg-inline-block fw-bold p-2- m-0 ">Weather Dashboard</h2>
   </header>
     <div class="row ">
       <!-- <div class="col-3"> -->
@@ -34,9 +38,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
               data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
           </div>
-          <div class="offcanvas-body">
-            <!-- Search menu goes here -->
-            <div class="mt-lg-4 me-lg-1 d-flex flex-column" id="search-container"> <!--bg-primary-->
+          <!-- Search menu goes here -->
+          <div class="offcanvas-body ms-0 ms-lg-3"> 
+            <div class="mt-lg-4- d-flex flex-column pt-4" id="search-container">
               <div class="input-group mb-3">
                 <input id='search-text' type="text" class="form-control border border-secondary" autocomplete="off" placeholder="Search location"
                   aria-label="Search location" aria-describedby="basic-addon2">
@@ -50,7 +54,7 @@
               <ul class="list-group" id="search-results-list">
               </ul>
               <!-- searchHistory -->
-              <article class='mt-4 pt-3 border-top border-dark' id="search-history-container">
+              <article class='mt-4 pt-3 border-top border-light' id="search-history-container">
                 <h4>Searched locations</h4>
                 <ul class="list-group" id="search-history-list">
                 </ul>
@@ -65,10 +69,10 @@
       <!-- <section id="current-weather-container" class="mt-4 ms-lg-4 border border-dark rounded shadow dark text-light"> -->
       <!-- <section id="current-weather-container" class="mt-4 ms-lg-4 border border-dark rounded shadow  "> -->
       <!-- <section id="current-weather-container" class="mt-4"> -->
-        <article id="current-weather-container" class="mt-lg-4 ms-lg-4 pb-5 pb-lg-0 border-lg rounded-lg shadow dark">
+        <article id="current-weather-container" class="mt-lg-4- pb-5 pb-lg-0- shadow- dark- transparent-">
           <!-- card content -->
           <!-- <div class="mx-auto current-weather-card p-3 border border-dark rounded shadow"> -->
-          <div class="mx-auto current-weather-card p-3">
+          <div class="mx-auto current-weather-card p-4">
             <div class="mb-3 pb-2 border-bottom text-center">
               <p class="m-0">Updated <span id="fetch-time"></span> on <span id="fetch-date"></span></p>
             </div>
@@ -76,7 +80,7 @@
               <div class="d-flex flex-column justify-content-center">
                 <p class="mb-3 lh-1 fs-1" id="current-city"></p>
                 <p class="mb-1 lh-1 fs-6" id="current-description"></p>
-                <p class="m-0 lh-1 fs-6"><span id="current-high"></span>&#176 / <span id="current-low"></span>&#176</p>
+                <!-- <p class="m-0 lh-1 fs-6"><span id="current-high"></span>&#176 / <span id="current-low"></span>&#176</p> -->
               </div>
               <!-- Current weather icon container -->
               <img id="current-weather-icon" style="transform: scale(1.4);">
@@ -85,7 +89,7 @@
               </div> -->
             </div>      
             <!-- <div id="current-weather-body" class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center bg-warning"> -->
-            <div id="current-weather-body" class="d-flex flex-column flex-md-row align-items-md-center ">
+            <div id="current-weather-body" class="d-flex flex-column flex-sm-row align-items-md-center ">
               <div>
                 <p class="m-0 lh-1" style="font-size: 7rem;"><span id="current-temp"></span>&#176</p>
               </div>
@@ -116,7 +120,18 @@
           </div>
         </article>
         <!-- End of current weather card -->
+        <!-- 5 Day Forecast -->
+        <article class="transparent rounded p-4">
+          <h3 class="p-4- dark- fw-bold" >5-Day Forecast:</h3>
+          <!-- Cards prototype -->
+          <div>
+            <h3>9/14/2022</h3>
+            <h3>icon</h3>
+          </div>
 
+
+
+        <article>
       </section>
     </div>
   </div>

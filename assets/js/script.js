@@ -1,49 +1,3 @@
-let weatherObject = {
-  "coord": {
-      "lon": -74.3236,
-      "lat": 40.398
-  },
-  "weather": [
-      {
-          "id": 800,
-          "main": "Clear",
-          "description": "clear sky",
-          "icon": "01d"
-      }
-  ],
-  "base": "stations",
-  "main": {
-      "temp": 32.86,
-      "feels_like": 28.08,
-      "temp_min": 30.49,
-      "temp_max": 35.64,
-      "pressure": 1027,
-      "humidity": 51
-  },
-  "visibility": 10000,
-  "wind": {
-      "speed": 5.01,
-      "deg": 306,
-      "gust": 8.99
-  },
-  "clouds": {
-      "all": 0
-  },
-  "dt": 1676734338,
-  "sys": {
-      "type": 2,
-      "id": 2036056,
-      "country": "US",
-      "sunrise": 1676720841,
-      "sunset": 1676759726
-  },
-  "timezone": -18000,
-  "id": 5096031,
-  "name": "Brownville",
-  "cod": 200
-}
-
-
 /**
  * Get approximate location
  * source https://www.geolocation-db.com/documentation
@@ -140,20 +94,19 @@ function getCoordinates(searchQuery) {
 function getResults(lat, long, updateSearchHistory) {
 
   // Forcast API call
-  let apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='
-    + lat + '&lon=' + long
-    + '&appid=e97ee8621afbdf55e3cfc6d7bc09d848'
-
+  let forcastApiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
   
   // current weather API call    
   let currentApi = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
   
   fetch(currentApi, {
     cache: 'reload'
+    // cache: 'no-cache'
   })
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
+          console.log("🚀 ~ file: script.js:157 ~ data", data)
           
           let locationObject = {
             name: data.name,
@@ -203,8 +156,8 @@ function renderCurrentResults(data, timeF, dateF) {
   currentWeatherIcon.setAttribute('alt', "weather icon");
   currentWeatherIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png')
   currentDesc.textContent = data.weather[0].description;
-  currentHigh.textContent = Math.round(data.main.temp_max);
-  currentLow.textContent = Math.round(data.main.temp_min);
+  // currentHigh.textContent = Math.round(data.main.temp_max);
+  // currentLow.textContent = Math.round(data.main.temp_min);
   currentTemp.textContent = Math.round(data.main.temp);
   currentFeelsLike.textContent = Math.round(data.main.feels_like);
   currentHumidity.textContent = data.main.humidity;
@@ -271,3 +224,8 @@ renderLocalStorage();
   } else {
     getApproximateLocation();
   }
+
+
+
+  //! zoom notes from Nathan
+  //! var apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=${weatherApiKey}`;
