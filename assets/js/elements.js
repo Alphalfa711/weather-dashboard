@@ -23,3 +23,5 @@ const currentFeelsLike = document.getElementById('current-feels-like');
 const currentHumidity = document.getElementById('current-humidity'); 
 const currentPressure = document.getElementById('current-pressure');
 const currentWind = document.getElementById('current-wind'); 
+
+// Forcast weather elements

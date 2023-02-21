@@ -140,22 +140,22 @@ function getCoordinates(searchQuery) {
 function getResults(lat, long, updateSearchHistory) {
 
   // Forcast API call
-  const apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='
+  let apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='
     + lat + '&lon=' + long
     + '&appid=e97ee8621afbdf55e3cfc6d7bc09d848'
 
   
   // current weather API call    
-  const currentApi = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
-
-
-  // fetch(apiUrl)
-  fetch(currentApi)
+  let currentApi = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
+  
+  fetch(currentApi, {
+    cache: 'reload'
+  })
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
           
-          const locationObject = {
+          let locationObject = {
             name: data.name,
             lat: data.coord.lat,
             lon: data.coord.lon
@@ -179,8 +179,8 @@ function getResults(lat, long, updateSearchHistory) {
 
           // Show time of fetch
           // Source https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
-          const fetchedTime = new Date(data.dt * 1000).toLocaleTimeString();
-          const fetchedDate = new Date(data.dt * 1000).toLocaleDateString();
+          let fetchedTime = new Date(data.dt * 1000).toLocaleTimeString();
+          let fetchedDate = new Date(data.dt * 1000).toLocaleDateString();
           // Update DOM elements
           renderCurrentResults(data, fetchedTime, fetchedDate);
         })
@@ -210,8 +210,6 @@ function renderCurrentResults(data, timeF, dateF) {
   currentHumidity.textContent = data.main.humidity;
   currentPressure.textContent = data.main.pressure;
   currentWind.textContent = data.wind.speed;
-
-  
   
 }
 
@@ -226,12 +224,13 @@ searchHistoryContainer.addEventListener('click', function (event) {
   if (element.matches('i') === true) {
     const index = element.parentElement.getAttribute("data-index");
     searchHistoryArray.splice(index, 1);
-
-
     updateLocalStorage();
     renderLocalStorage();
+  } else if (element.matches('li')) {
+    let lat = element.getAttribute('data-lat');
+    let long = element.getAttribute('data-lon');
+    getResults(lat, long, false);
   }
-
 })
 
 function updateLocalStorage() {
@@ -272,14 +271,3 @@ renderLocalStorage();
   } else {
     getApproximateLocation();
   }
-
-searchHistoryContainer.addEventListener('click', function(event) {
-  
-  let element = event.target;
-  
-  if (element.matches('li')) {
-    const lat = element.getAttribute('data-lat');
-    const long = element.getAttribute('data-lon');
-    getResults(lat, long, false);
-  }
-})
