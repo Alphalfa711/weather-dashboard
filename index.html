@@ -8,7 +8,7 @@
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <!-- CSS -->
+  <!-- CSS -->  
   <link rel="stylesheet" href="./assets/css/style.css">
   <!-- Fontawsome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
@@ -16,95 +16,116 @@
 </head>
 
 <body>
-  <!-- Hamburger style button -->
-  <nav>
-    <button class="btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive"
-    aria-controls="offcanvasResponsive"><i class="fa-solid fa-bars"></i></button>
-  </nav>
-  <!-- <div class="container-xxl d-flex justify-content-center" id="container"> bg-primary -->
-  <div class="container" id="container">
-    <div class="row">
-      <div class="col-3">
-    <!-- Offcanvas modal bootstrap -->
-    <section class="offcanvas-lg offcanvas-start" tabindex="-1" id="offcanvasResponsive"
-      aria-labelledby="offcanvasResponsiveLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasResponsiveLabel"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-          data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+  <div class="container px-0" id="container">
+    <header class="d-flex align-items-center border-lg rounded-lg dark m-0">
+    <!-- Hamburger style button -->
+    <button class="btn d-lg-none text-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive"
+      aria-controls="offcanvasResponsive"><i class="fa-solid fa-bars"></i></button>    
+    <h2 class="d-none d-lg-inline-block fw-bold p-2 m-0 ">Weather Dashboard</h2>
+  </header>
+    <div class="row ">
+      <!-- <div class="col-3"> -->
+      <div class="col-md-12 col-lg-4 col-xl-3"> <!-- bg-warning-->
+      <!-- Offcanvas modal bootstrap -->
+        <section class="offcanvas-lg offcanvas-start" tabindex="-1" id="offcanvasResponsive"
+          aria-labelledby="offcanvasResponsiveLabel">
+          <div class="offcanvas-header">
+            <!-- <h5 class="offcanvas-title" id="offcanvasResponsiveLabel"></h5> -->
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+              data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <!-- Search menu goes here -->
+            <div class="mt-lg-4 me-lg-1 d-flex flex-column" id="search-container"> <!--bg-primary-->
+              <div class="input-group mb-3">
+                <input id='search-text' type="text" class="form-control border border-secondary" autocomplete="off" placeholder="Search location"
+                  aria-label="Search location" aria-describedby="basic-addon2">
+                <span class="input-group-text border border-secondary" id="basic-addon1">
+                  <i class="fa-solid fa-location-crosshairs btn" id="get-location"></i>
+                </span>
+              </div>                  
+              <!-- Search button -->
+              <button class="btn btn-warning w-100 border border-secondary" id="search-btn">Search</button>
+              <!-- Search confirmation -->
+              <ul class="list-group" id="search-results-list">
+              </ul>
+              <!-- searchHistory -->
+              <article class='mt-4 pt-3 border-top border-dark' id="search-history-container">
+                <h4>Searched locations</h4>
+                <ul class="list-group" id="search-history-list">
+                </ul>
+              </article>
+            </div>
+          </div>
+        </section>
       </div>
-      <div class="offcanvas-body">
-        <!-- Search menu goes here -->
-        <div class="mt-4" id="search-container">
-          <div class="input-group mb-3">
-            <input id='searchText' type="text" class="form-control border border-secondary" autocomplete="off" placeholder="Search location"
-              aria-label="Search location" aria-describedby="basic-addon2">
-            <span class="input-group-text border border-secondary" id="basic-addon1">
-              <i class="fa-solid fa-location-crosshairs btn" id="get-location"></i>
-            </span>
-          </div>    
+      <!-- <div class="col-lg-8"> -->
+      <section class="col"> <!--bg-primary-->
+      <!-- Weather results -->
+      <!-- <section id="current-weather-container" class="mt-4 ms-lg-4 border border-dark rounded shadow dark text-light"> -->
+      <!-- <section id="current-weather-container" class="mt-4 ms-lg-4 border border-dark rounded shadow  "> -->
+      <!-- <section id="current-weather-container" class="mt-4"> -->
+        <article id="current-weather-container" class="mt-lg-4 ms-lg-4 pb-5 pb-lg-0 border-lg rounded-lg shadow dark">
+          <!-- card content -->
+          <!-- <div class="mx-auto current-weather-card p-3 border border-dark rounded shadow"> -->
+          <div class="mx-auto current-weather-card p-3">
+            <div class="mb-3 pb-2 border-bottom text-center">
+              <p class="m-0">Updated <span id="fetch-time"></span> on <span id="fetch-date"></span></p>
+            </div>
+            <div id="current-weather-header" class="d-flex justify-content-between">
+              <div class="d-flex flex-column justify-content-center">
+                <p class="mb-3 lh-1 fs-1" id="current-city"></p>
+                <p class="mb-1 lh-1 fs-6" id="current-description"></p>
+                <p class="m-0 lh-1 fs-6"><span id="current-high"></span>&#176 / <span id="current-low"></span>&#176</p>
+              </div>
+              <!-- Current weather icon container -->
+              <img id="current-weather-icon" style="transform: scale(1.4);">
+              <!-- <div>
+                <i class="fa-regular fa-star"></i>
+              </div> -->
+            </div>      
+            <!-- <div id="current-weather-body" class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center bg-warning"> -->
+            <div id="current-weather-body" class="d-flex flex-column flex-md-row align-items-md-center ">
+              <div>
+                <p class="m-0 lh-1" style="font-size: 7rem;"><span id="current-temp"></span>&#176</p>
+              </div>
+              <!-- <div class="mt-5 mt-md-0 "> -->
+              <!-- <table class="table table-dark table-borderless table-sm ms-md-4"> -->
+              <!-- <table class="table table-borderless text-light table-sm ms-md-4"> -->
+              <table class="table table-borderless table-sm m-0 ms-md-4" >
+                <tbody>
+                  <tr>
+                    <td>Feels Like:</td>
+                    <td><span id="current-feels-like"></span>&#176</td>
+                  </tr>
+                  <tr>
+                    <td>Humidity:</td>
+                    <td><span id="current-humidity"></span>%</td>
+                  </tr>
+                  <tr>
+                    <td>Pressure:</td>
+                    <td><span id="current-pressure"></span>hPs</td>
+                  </tr>
+                  <tr>
+                    <td>Wind:</td>
+                    <td><span id="current-wind"></span>MPH</td>
+                  </tr>
+                </tbody>
+              </table>  
+            </div>
+          </div>
+        </article>
+        <!-- End of current weather card -->
 
-          <button class="btn btn-warning w-100 border border-secondary" id="searchBtn">Search</button>
-          <!-- Favorites -->
-          <article class='mt-4' id="favorites-container">
-            <h3>Favorite locations</h3>
-            <ul id="favorites-list">
-              <!-- <li data-index="0">Matawan, NJ<i class="fa-solid fa-xmark btn"></i></li> -->
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-      </div>
-    <div class="col-lg-8">
-    <!-- Weather results -->
-    <!-- <section id="current-weather-container" class="mt-4 ms-4 px-4 border border-secondary rounded shadow bg-primary"> -->
-    <section id="current-weather-container" class="mt-4 ms-4 px-4 pb-4 border border-dark rounded shadow bg-dark text-light">
-      
-      <div id="current-weather-header" class="d-flex justify-content-between align-items-center">
-        
-      </div>      
-      <div id="current-weather-body" class="d-flex justify-content-between align-items-center gap-3">
-        <div style="font-size: 7.5rem; font-weight: bold; line-height: 0;">
-          26&#176C
-        </div>
-        <table>
-          <tbody>
-            <tr>
-              <td>Details</td>
-            </tr>
-            <tr>
-              <td>Feels Like:</td>
-              <td>26.02&#176C</td>
-            </tr>
-            <tr>
-              <td>Humidity:</td>
-              <td>11%</td>
-            </tr>
-            <tr>
-              <td>Pressure:</td>
-              <td>1013hPs</td>
-            </tr>
-          </tbody>
-        </table>            
-        <!-- </div> -->
-      </div>
-    </section>
-    </div>
+      </section>
     </div>
   </div>
-
-
-  
-  <!-- Scripts -->
+  <!-- Scripts --> 
+  <script src="./assets/js/elements.js"></script>
+  <script src="./assets/js/script.js"></script>
+  <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
-
-  <script src="./assets/js/script.js"></script>
-
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
-
 </html>

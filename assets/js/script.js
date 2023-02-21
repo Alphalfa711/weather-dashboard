@@ -1,3 +1,49 @@
+let weatherObject = {
+  "coord": {
+      "lon": -74.3236,
+      "lat": 40.398
+  },
+  "weather": [
+      {
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01d"
+      }
+  ],
+  "base": "stations",
+  "main": {
+      "temp": 32.86,
+      "feels_like": 28.08,
+      "temp_min": 30.49,
+      "temp_max": 35.64,
+      "pressure": 1027,
+      "humidity": 51
+  },
+  "visibility": 10000,
+  "wind": {
+      "speed": 5.01,
+      "deg": 306,
+      "gust": 8.99
+  },
+  "clouds": {
+      "all": 0
+  },
+  "dt": 1676734338,
+  "sys": {
+      "type": 2,
+      "id": 2036056,
+      "country": "US",
+      "sunrise": 1676720841,
+      "sunset": 1676759726
+  },
+  "timezone": -18000,
+  "id": 5096031,
+  "name": "Brownville",
+  "cod": 200
+}
+
+
 /**
  * Get approximate location
  * source https://www.geolocation-db.com/documentation
@@ -6,7 +52,6 @@
 
 function callback(data) {
   console.log("🚀 ~ file: script.js:8 ~ callback ~ data", data)
-  formatSearchFields(data);  
   getResults(data.latitude, data.longitude, false);
 }
 
@@ -17,22 +62,6 @@ function getApproximateLocation () {
   var h = document.getElementsByTagName('script')[0];
   h.parentNode.insertBefore(script, h);
 }
-
-function formatSearchFields(data) {
-  if (data.country_code === "US") {
-    console.log("US")
-  }
-}
-
-
-
-const searchText = document.getElementById('searchText');
-const searchBtn = document.getElementById('searchBtn');
-const currentWeatherContainer = document.getElementById('current-weather-container');
-const currentWeatherHeader = document.getElementById('current-weather-header') 
-let favoritesArray = JSON.parse(localStorage.getItem("favorites"));
-
-
 
 
 /**
@@ -49,9 +78,6 @@ locationBtn.addEventListener("click", () => {
     console.log("🚀 ~ file: script.js:35 ~ navigator.geolocation.getCurrentPosition ~ lat", lat)
     let long = position.coords.longitude;
     console.log("🚀 ~ file: script.js:37 ~ navigator.geolocation.getCurrentPosition ~ long", long)
-
-    
-
     // Pass current latitude and longitude to function that will handle API request
     getResults(lat, long, false);
   });
@@ -64,8 +90,9 @@ locationBtn.addEventListener("click", () => {
 searchBtn.addEventListener('click', function () {
 
   var query = searchText.value;
-
+  
   if (query) {
+    // searchText.value = "";
     getCoordinates(query);
   } else {
     alert("Search value cannot be blank")
@@ -78,7 +105,7 @@ searchBtn.addEventListener('click', function () {
  */
 function getCoordinates(searchQuery) {
 
-  var apiUrlQuery = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchQuery + '&limit=5&appid=e97ee8621afbdf55e3cfc6d7bc09d848'
+  const apiUrlQuery = 'https://api.openweathermap.org/geo/1.0/direct?q=' + searchQuery + '&limit=5&appid=e97ee8621afbdf55e3cfc6d7bc09d848';
 
   fetch(apiUrlQuery)
     .then(function (response) {
@@ -88,9 +115,20 @@ function getCoordinates(searchQuery) {
         throw (error);
       }
     }).then(function (data) {
-      console.log(data)
+      console.log("🚀 ~ file: script.js:116 ~ data", data)
       //! Test pass first results to open weather
-      getResults(data[0].lat, data[0].lon, true)
+      if (data.length === 1) {
+        searchText.value = "";
+        getResults(data[0].lat, data[0].lon, true)  
+      } else {
+        searchText.value = "";
+        getResults(data[0].lat, data[0].lon, true)  
+        // data.forEach(element => {
+        //   let resultOption = document.createElement('option');
+        //       resultOption.setAttribute('value', element.name);
+        //   searchDataList.appendChild(resultOption);
+        // });
+      }      
     })
     .catch(function (error) {
       alert("Unable to connect to Open Weather");
@@ -99,42 +137,52 @@ function getCoordinates(searchQuery) {
 };
 
 
-function getResults(lat, long, updateFavorites) {
+function getResults(lat, long, updateSearchHistory) {
 
-
+  // Forcast API call
   let apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat='
     + lat + '&lon=' + long
     + '&appid=e97ee8621afbdf55e3cfc6d7bc09d848'
 
-  // let apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?id=paris,fr&appid=e97ee8621afbdf55e3cfc6d7bc09d848'
-  let apiUrl2 = 'https://api.openweathermap.org/data/2.5/forecast?id=Matawan,NJ,US&appid=e97ee8621afbdf55e3cfc6d7bc09d848'
-  // let apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=London&appid=e97ee8621afbdf55e3cfc6d7bc09d848'
-
-
-  // current weather        
-  currentApi = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
-
-  // var docBody = document.getElementById('container')
-  // docBody.appendChild(mapPic)
-
-  //! http://api.openweathermap.org/geo/1.0/zip?zip={zip code},{country code}&appid={API key}
-  //! API call to get geo coordinates to pass into forcast call
-
-  // fetch(apiUrl)
-  fetch(currentApi)
+  
+  // current weather API call    
+  let currentApi = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
+  
+  fetch(currentApi, {
+    cache: 'reload'
+  })
     .then(function (response) {
-      console.log("🚀 ~ file: script.js:125 ~ response", response)
-      // console.log(response)
       if (response.ok) {
         response.json().then(function (data) {
-          console.log(data);
           
-          if (updateFavorites) {
-            favoritesArray.push(data.name);
-            updateLocalStorage();
-            renderLocalStorage();
+          let locationObject = {
+            name: data.name,
+            lat: data.coord.lat,
+            lon: data.coord.lon
           }
-          renderResults(data);
+
+          if (updateSearchHistory) {
+
+            let newItem = true;
+            searchHistoryArray.forEach(element => {
+              if (data.name === element.name) {
+                newItem = false;
+              }
+            });
+
+            if (newItem) {
+              searchHistoryArray.push(locationObject);
+              updateLocalStorage();
+              renderLocalStorage();
+            }
+          }
+
+          // Show time of fetch
+          // Source https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
+          let fetchedTime = new Date(data.dt * 1000).toLocaleTimeString();
+          let fetchedDate = new Date(data.dt * 1000).toLocaleDateString();
+          // Update DOM elements
+          renderCurrentResults(data, fetchedTime, fetchedDate);
         })
       } else {
         alert('Error: ' + response.status)
@@ -147,76 +195,79 @@ function getResults(lat, long, updateFavorites) {
  * Update elements on the page
  * @param {object} data 
  */
-function renderResults(data) {
-  console.log("🚀 ~ file: script.js:142 ~ renderResults ~ data", data)
-  // for (let i = 0; i < data.)
-  // console.log(data);
+function renderCurrentResults(data, timeF, dateF) {
 
-  let weatherResultsTitle = document.createElement('h2');
-  weatherResultsTitle.textContent = data.name;
-  currentWeatherHeader.appendChild(weatherResultsTitle);
+  fetchDate.textContent = dateF;
+  fetchTime.textContent = timeF;
+  currentCity.textContent = data.name;
+  currentWeatherIcon.setAttribute('alt', "weather icon");
+  currentWeatherIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png')
+  currentDesc.textContent = data.weather[0].description;
+  currentHigh.textContent = Math.round(data.main.temp_max);
+  currentLow.textContent = Math.round(data.main.temp_min);
+  currentTemp.textContent = Math.round(data.main.temp);
+  currentFeelsLike.textContent = Math.round(data.main.feels_like);
+  currentHumidity.textContent = data.main.humidity;
+  currentPressure.textContent = data.main.pressure;
+  currentWind.textContent = data.wind.speed;
   
-  let weatherIcon = document.createElement('img');
-      weatherIcon.setAttribute('alt', "weather icon");
-      weatherIcon.setAttribute('src', 'http://openweathermap.org/img/wn/11d@2x.png')
-      // weatherIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png');
-  currentWeatherHeader.appendChild(weatherIcon);
-
 }
 
 
 /**
- * Search favorites
+ * Search searchHistory
  */
-var favoritesContainer = document.getElementById('favorites-container');
-var favoritesList = document.getElementById('favorites-list')
 
-favoritesContainer.addEventListener('click', function (event) {
-  let element = event.target;
+searchHistoryContainer.addEventListener('click', function (event) {
+  const element = event.target;
 
   if (element.matches('i') === true) {
-    let index = element.parentElement.getAttribute("data-index");
-    favoritesArray.splice(index, 1);
-
-
+    const index = element.parentElement.getAttribute("data-index");
+    searchHistoryArray.splice(index, 1);
     updateLocalStorage();
     renderLocalStorage();
+  } else if (element.matches('li')) {
+    let lat = element.getAttribute('data-lat');
+    let long = element.getAttribute('data-lon');
+    getResults(lat, long, false);
   }
-
 })
 
-//todo if no lat or long / check for localstorate and use last location searched, if not local storage display modal with search - first time after user load the page
-//todo update local storage
-//todo render local storage
 function updateLocalStorage() {
-  localStorage.setItem("favorites", JSON.stringify(favoritesArray));
+  localStorage.setItem("searchHistory", JSON.stringify(searchHistoryArray));
 }
 
 
 function renderLocalStorage() {
-  favoritesList.innerHTML = "";
+  searchHistoryList.innerHTML = "";
 
-  favoritesArray = JSON.parse(localStorage.getItem("favorites"));
+  searchHistoryArray = JSON.parse(localStorage.getItem("searchHistory"));
 
-  if (favoritesArray) {
-    favoritesArray.forEach((element, index) => {
-      var favoritesListItem = document.createElement('li')
-      favoritesListItem.setAttribute('data-index', index);
-      favoritesListItem.setAttribute('class', 'my-2')
-      favoritesListItem.textContent = element;
-      var closeIcon = document.createElement('i');
-      closeIcon.setAttribute('class', 'fa-solid fa-xmark btn');
-      
+  if (searchHistoryArray) {
+    searchHistoryArray.forEach((element, index) => {
+      const searchHistoryListItem = document.createElement('li')
+      searchHistoryListItem.setAttribute('data-index', index);
+      searchHistoryListItem.setAttribute('data-lat', element.lat);
+      searchHistoryListItem.setAttribute('data-lon', element.lon);
+      searchHistoryListItem.setAttribute('class', 'list-group-item d-flex justify-content-between align-items-center my-1')
+      searchHistoryListItem.textContent = element.name;
+      const closeIcon = document.createElement('i');
+      closeIcon.setAttribute('class', 'fa-solid fa-xmark');     
 
-      favoritesListItem.appendChild(closeIcon);
-      favoritesList.appendChild(favoritesListItem)
+      searchHistoryListItem.appendChild(closeIcon);
+      searchHistoryList.appendChild(searchHistoryListItem)
     });
   } else {
-    favoritesArray = [];
+    searchHistoryArray = [];
   }
 }
 
 
-
-getApproximateLocation();
 renderLocalStorage();
+
+  if (searchHistoryArray.length > 0) {
+    const lastArrayItem = searchHistoryArray.length - 1;
+    getResults(searchHistoryArray[lastArrayItem].lat, searchHistoryArray[lastArrayItem].lon, false);
+  } else {
+    getApproximateLocation();
+  }

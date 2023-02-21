@@ -1,22 +1,32 @@
 :root {
-    --dark-background: #474E68;
+    /* --dark-background: #474E68; */
+    /* --dark-background: #5f6a8f; */
+    --dark-background: #7B819D;
+    /* --dark-background-gradient: #393d4e; */
+    --dark-background-gradient: #2d303d;
     --dark-background-font: #e5e1e1;
     /* --dark-background-font: #f9f9fa; */
-    --light-background: #c5c5c5;
-    /* --light-background: #eeeff8; */
+    /* --light-background: #c5c5c5; */
+    /* --light-background: #ececec; */
+    --light-background: #eeeff8;
     --font-color: #1f1f29;
 }
 
 body {
     /* background-color: #F5F5F5; */
-    background-color: var(--dark-background-font);
+    background-color: var(--light-background);
+    /* background-color: var(--dark-background-font); */
     color: var(--font-color);
-    font-family: sans-serif;
+    font-family: sans-serif;    
+    /* background-color: var(--dark-background); */
 }
 
 .dark {
-    background-color: var(--dark-background);
+    /* background-color: var(--dark-background); */
+    background-image: linear-gradient(90deg, var(--dark-background-gradient), var(--dark-background));
+    /* background-color: rgba(255, 255, 255, .3); */
     color: var(--dark-background-font);
+    /* color: white; */
 }
 
 .light {
@@ -24,34 +34,55 @@ body {
 }
 
 
-#history-list {
+/* #searchHistory-list {
     list-style-type: none;
     padding: 0;
     margin: 0;
-}
+} */
 
-#history-list li {
+#search-history-list li {
     border: 1px solid var(--font-color);
     border-radius: 5px;
-    padding: .5rem;
+    /* transition: .5s; */
 }
 
-#history-list li i {
+/* #searchHistory-list li i {
     float: right;
-    border: none;
+    border: none; */
     /* background-color: rgba(255, 255, 255, 0); */
-}
+/* } */
 
-#history-list li:hover {
+#search-history-list li:hover {
     cursor: pointer;
-    color: #f0ad4e;
+    /* color: #f0ad4e; */
     border-color: #f0ad4e;
+    translate: 5px;
+    /* transition: .5s; */
 }
 
-#history-list li i:hover {
+#search-history-list li i:hover {
     color: #F05454;
 }
 
 /* #current-weather-container {
     max-width: 500px;
 } */
+
+.current-weather-card {
+    max-width: 400px;
+}
+
+.table {
+    /* color: var(--font-color); */
+    color: var(--dark-background-font);
+    max-width: 320px;
+}
+
+.table td {
+    padding: 0;
+}
+
+/* History item close icon */
+.fa-solid.fa-xmark:hover {
+    cursor: pointer;
+}
