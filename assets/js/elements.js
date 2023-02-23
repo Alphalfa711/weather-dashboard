@@ -15,8 +15,6 @@ const fetchDate = document.getElementById('fetch-date');
 const fetchTime = document.getElementById('fetch-time');
 const currentCity = document.getElementById('current-city');
 const currentDesc = document.getElementById('current-description');
-// const currentHigh = document.getElementById('current-high');
-// const currentLow = document.getElementById('current-low');
 const currentWeatherIcon = document.getElementById('current-weather-icon');
 const currentTemp = document.getElementById('current-temp');
 const currentFeelsLike = document.getElementById('current-feels-like');
@@ -25,3 +23,12 @@ const currentPressure = document.getElementById('current-pressure');
 const currentWind = document.getElementById('current-wind'); 
 
 // Forcast weather elements
+// day1-day
+// day1-date
+// day1-icon-day
+// day1-icon-night
+// day1-temp-day
+// day1-temp-night
+// day1-humidity
+// day1-wind
+// day1-pressure

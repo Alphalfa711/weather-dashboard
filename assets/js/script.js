@@ -164,7 +164,7 @@ function getResults(lat, long, updateSearchHistory) {
         if (response.ok) {
           response.json().then(function (futureData) {
             console.log("🚀 ~ file: script.js:157 ~ futureData", futureData)
-            // renderFutureResults(futureData);
+            formatForcastData(futureData);
           });
         }
     })
@@ -183,8 +183,6 @@ function renderCurrentResults(data, timeF, dateF) {
   currentWeatherIcon.setAttribute('alt', "weather icon");
   currentWeatherIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + data.weather[0].icon + '@2x.png')
   currentDesc.textContent = data.weather[0].description;
-  // currentHigh.textContent = Math.round(data.main.temp_max);
-  // currentLow.textContent = Math.round(data.main.temp_min);
   currentTemp.textContent = Math.round(data.main.temp);
   currentFeelsLike.textContent = Math.round(data.main.feels_like);
   currentHumidity.textContent = data.main.humidity;
@@ -193,6 +191,51 @@ function renderCurrentResults(data, timeF, dateF) {
   
 }
 
+function formatForcastData(futureData) {
+
+  const day1 = [];
+  const day2 = [];
+  const day3 = [];
+  const day4 = [];
+  const day5 = [];
+
+  // day1.push(futureData.list[0])
+  futureData.list.forEach((element, index) => {
+    if (index < 8) {
+      day1.push(element);
+    } else if (index < 16) {
+      day2.push(element);
+    } else if (index < 24) {
+      day3.push(element);
+    } else if (index < 32) {
+      day4.push(element);
+    } else {
+      day5.push(element);
+    }
+  });
+  
+  console.log(day1)
+  console.log(day2)
+  console.log(day3)
+  console.log(day4)
+  console.log(day5)
+
+
+  // renderFutureResults(futureData);
+}
+
+
+
+
+function renderFutureResults(futureData) {
+  const forcastListArray = futureData.list
+  // console.log("🚀 ~ file: script.js:196 ~ renderFutureResults ~ forcastListArray:", forcastListArray)
+  // console.log(futureData.city)
+
+
+  
+  // const forcastDay = futureData
+}
 
 /**
  * Search searchHistory
@@ -251,6 +294,3 @@ if (searchHistoryArray.length > 0) {
 } else {
   getApproximateLocation();
 }
-
-
-

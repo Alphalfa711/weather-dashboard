@@ -114,62 +114,152 @@
         <!-- End of current weather card -->
         <!-- 5 Day Forecast -->
         <article class="transparent rounded p-4">
-          <h3 class="p-4- dark- fw-bold text-decoration-underline-" >5-Day Forecast:</h3>
-          <!-- Cards prototype -->
-          <!-- <div class="row"> -->
-            <!-- <div class="col bg-light- transparent- dark- future-day-container shadow rounded p-2 d-flex gap-3"> -->
-              <!-- <div class="d-flex flex-column justify-content-between- align-items-center- future-day-container- transparent shadow rounded p-2 gap-5-">
-                <div class="d-flex flex-column- justify-content-between- align-items-center- future-day-container- shadow- rounded- p-2- gap-3 border-bottom">
-                  <p class="m-0 fs-5">Friday</p>
-                  <div class="d-flex gap-3">
-                    <p class="m-0 fs-5">icon icon</p>
-                    <p class="m-0 fs-5">34&#176 12&#176</p>
-                  </div>
-                </div>              
-                <div class="d-flex flex-column- justify-content-between- align-items-center future-day-container- shadow- rounded- p-2- gap-3 border-bottom">
-                  <p class="m-0 fs-5">Saturday</p>
-                  <div class="d-flex gap-3">
-                    <p class="m-0 fs-5">icon icon</p>
-                    <p class="m-0 fs-5">34&#176 12&#176</p>
-                  </div>
-                </div>  
-              </div>               -->
-              
-              <div class="row pb-3 align-items-center border-bottom">
-                
-                <div class="col-12 col-md-2 py-1 d-flex flex-md-column gap-4 gap-md-0">
-                  <p class="m-0 fs-6 text-warning">Friday</p>
-                  <p class="m-0 fs-6 text-warning">2/22/2023</p>
-                </div>
-
-                <div class="col-6 col-md-2 d-flex flex-column align-items-center  py-1">
-                    <p class="m-0 fs-6 text-center">icon</p>
-                    <p class="m-0 fs-6 text-center text-warning-">34&#176</p>
-                </div>
-                <div class="col-6 col-md-2 d-flex flex-column align-items-center  py-1">
-                    <p class="m-0 fs-6 text-center">icon</p>
-                    <p class="m-0 fs-6 text-center text-warning-">34&#176</p>
-                </div>                
-                <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
-                  <p class="m-0 fs-6">Humidity</p>
-                  <p class="m-0 fs-6">70%</p>
-                </div>
-                <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
-                  <p class="m-0 fs-6">Wind</p>
-                  <p class="m-0 fs-6">7MPS</p>
-                </div>
-                <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
-                  <p class="m-0 fs-6">Pressure</p>
-                  <p class="m-0 fs-6">1014hPs</p>
-                </div>
+          <h3 class="fw-bold" >5-Day Forecast:</h3>
+          <!-- Day 1 -->
+          <div id="forcast-container">
+            <div class="row pb-3 align-items-center border-bottom">
+              <div class="col-12 col-md-2 d-flex flex-md-column gap-4 gap-md-0">
+                <p class="m-0 fs-6 text-warning" id="day1-day">Friday</p>
+                <p class="m-0 fs-6 text-warning" id="day1-date">2/22/2023</p>
               </div>
-              
-
-
+              <div class="col-6 col-md-2 d-flex flex-column align-items-center ">
+                  <p class="m-0 fs-6 text-center" id="day1-icon-day">icon</p>
+                  <p class="m-0 fs-6 text-center text-warning-"><span id="day1-temp-day"></span>&#176</p>
+              </div>
+              <div class="col-6 col-md-2 d-flex flex-column align-items-center ">
+                  <p class="m-0 fs-6 text-center" id="day1-icon-night"></p>
+                  <p class="m-0 fs-6 text-center"><span id="day1-temp-night"></span>&#176</p>
+              </div>                
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center ">
+                <p class="m-0 fs-6">Humidity</p>
+                <p class="m-0 fs-6" id="day1-humidity">70%</p>
+              </div>
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center ">
+                <p class="m-0 fs-6">Wind</p>
+                <p class="m-0 fs-6" id="day1-wind">7MPS</p>
+              </div>
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center ">
+                <p class="m-0 fs-6">Pressure</p>
+                <p class="m-0 fs-6" id="day1-pressure">1014hPs</p>
+              </div>
+            </div>
+            <!-- Day 2 -->
+            <div class="row py-3 align-items-center border-bottom">
+              <div class="col-12 col-md-2 py-1- d-flex flex-md-column gap-4 gap-md-0">
+                <p class="m-0 fs-6 text-warning">Friday</p>
+                <p class="m-0 fs-6 text-warning">2/22/2023</p>
+              </div>
+              <div class="col-6 col-md-2 d-flex flex-column align-items-center  py-1">
+                  <p class="m-0 fs-6 text-center">icon</p>
+                  <p class="m-0 fs-6 text-center text-warning-">34&#176</p>
+              </div>
+              <div class="col-6 col-md-2 d-flex flex-column align-items-center  py-1">
+                  <p class="m-0 fs-6 text-center">icon</p>
+                  <p class="m-0 fs-6 text-center text-warning-">34&#176</p>
+              </div>                
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                <p class="m-0 fs-6">Humidity</p>
+                <p class="m-0 fs-6">70%</p>
+              </div>
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                <p class="m-0 fs-6">Wind</p>
+                <p class="m-0 fs-6">7MPS</p>
+              </div>
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                <p class="m-0 fs-6">Pressure</p>
+                <p class="m-0 fs-6">1014hPs</p>
+              </div>
+            </div>
+            <!-- Day 3 -->
+            <div class="row py-3 align-items-center border-bottom">
+              <div class="col-12 col-md-2 py-1- d-flex flex-md-column gap-4 gap-md-0">
+                <p class="m-0 fs-6 text-warning">Friday</p>
+                <p class="m-0 fs-6 text-warning">2/22/2023</p>
+              </div>
+              <div class="col-6 col-md-2 d-flex flex-column align-items-center  py-1">
+                  <p class="m-0 fs-6 text-center">icon</p>
+                  <p class="m-0 fs-6 text-center text-warning-">34&#176</p>
+              </div>
+              <div class="col-6 col-md-2 d-flex flex-column align-items-center  py-1">
+                  <p class="m-0 fs-6 text-center">icon</p>
+                  <p class="m-0 fs-6 text-center text-warning-">34&#176</p>
+              </div>                
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                <p class="m-0 fs-6">Humidity</p>
+                <p class="m-0 fs-6">70%</p>
+              </div>
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                <p class="m-0 fs-6">Wind</p>
+                <p class="m-0 fs-6">7MPS</p>
+              </div>
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                <p class="m-0 fs-6">Pressure</p>
+                <p class="m-0 fs-6">1014hPs</p>
+              </div>
+            </div>
+            <!-- Day 4 -->
+            <div class="row py-3 align-items-center border-bottom">
+              <div class="col-12 col-md-2 py-1- d-flex flex-md-column gap-4 gap-md-0">
+                <p class="m-0 fs-6 text-warning">Friday</p>
+                <p class="m-0 fs-6 text-warning">2/22/2023</p>
+              </div>
+              <div class="col-6 col-md-2 d-flex flex-column align-items-center  py-1">
+                  <p class="m-0 fs-6 text-center">icon</p>
+                  <p class="m-0 fs-6 text-center text-warning-">34&#176</p>
+              </div>
+              <div class="col-6 col-md-2 d-flex flex-column align-items-center  py-1">
+                  <p class="m-0 fs-6 text-center">icon</p>
+                  <p class="m-0 fs-6 text-center text-warning-">34&#176</p>
+              </div>                
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                <p class="m-0 fs-6">Humidity</p>
+                <p class="m-0 fs-6">70%</p>
+              </div>
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                <p class="m-0 fs-6">Wind</p>
+                <p class="m-0 fs-6">7MPS</p>
+              </div>
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                <p class="m-0 fs-6">Pressure</p>
+                <p class="m-0 fs-6">1014hPs</p>
+              </div>
+            </div>
+            <!-- Day 5 -->
+            <div class="row pt-3 align-items-center border-bottom-">
+              <div class="col-12 col-md-2 py-1- d-flex flex-md-column gap-4 gap-md-0">
+                <p class="m-0 fs-6 text-warning">Friday</p>
+                <p class="m-0 fs-6 text-warning">2/22/2023</p>
+              </div>
+              <div class="col-6 col-md-2 d-flex flex-column align-items-center  py-1">
+                  <p class="m-0 fs-6 text-center">icon</p>
+                  <p class="m-0 fs-6 text-center text-warning-">34&#176</p>
+              </div>
+              <div class="col-6 col-md-2 d-flex flex-column align-items-center  py-1">
+                  <p class="m-0 fs-6 text-center">icon</p>
+                  <p class="m-0 fs-6 text-center text-warning-">34&#176</p>
+              </div>                
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                <p class="m-0 fs-6">Humidity</p>
+                <p class="m-0 fs-6">70%</p>
+              </div>
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                <p class="m-0 fs-6">Wind</p>
+                <p class="m-0 fs-6">7MPS</p>
+              </div>
+              <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                <p class="m-0 fs-6">Pressure</p>
+                <p class="m-0 fs-6">1014hPs</p>
+              </div>
+            </div>
+          </div>
         <article>
       </section>
-    </div>
+    </div>    
   </div>
+  <footer class="p-4 mt-5 text-center">
+    <h6>Created by Mirek Nyzio</h6>
+    <!-- <h6>Full Stack Dev</h6> -->
+  </footer>
   <!-- Scripts --> 
   <script src="./assets/js/elements.js"></script>
   <script src="./assets/js/script.js"></script>
