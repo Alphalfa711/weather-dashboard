@@ -93,20 +93,29 @@ function getCoordinates(searchQuery) {
 
 function getResults(lat, long, updateSearchHistory) {
 
-  // Forcast API call
-  let forcastApiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
-  
   // current weather API call    
   let currentApi = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
   
   fetch(currentApi, {
+    // method: "GET",
+    // headers: {
+      // cache: 'no-store'
+      // "Cache-Control": 'no-store ',
+    // }
+  // fetch(currentApi, {
     cache: 'reload'
+    // headers: {
+    // "Cache-Control": 'no-cache, no-store'
     // cache: 'no-cache'
-  })
+    // cache: 'no-store'
+    // "Cache-Control": "no-store, no-cache"
+    // "Cache-Control": "max-age=0"
+    // }
+    })
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
-          console.log("🚀 ~ file: script.js:157 ~ data", data)
+          // console.log("🚀 ~ file: script.js:157 ~ data", data)
           
           let locationObject = {
             name: data.name,
@@ -140,6 +149,24 @@ function getResults(lat, long, updateSearchHistory) {
       } else {
         alert('Error: ' + response.status)
       }
+    })
+
+
+    // Forcast API call
+    // Forcast call
+    
+  let forcastApiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
+    fetch(forcastApiUrl, {
+      cache: 'reload'
+      // cache: 'no-cache'
+      })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (futureData) {
+            console.log("🚀 ~ file: script.js:157 ~ futureData", futureData)
+            // renderFutureResults(futureData);
+          });
+        }
     })
 }
 
@@ -218,14 +245,12 @@ function renderLocalStorage() {
 
 renderLocalStorage();
 
-  if (searchHistoryArray.length > 0) {
-    const lastArrayItem = searchHistoryArray.length - 1;
-    getResults(searchHistoryArray[lastArrayItem].lat, searchHistoryArray[lastArrayItem].lon, false);
-  } else {
-    getApproximateLocation();
-  }
+if (searchHistoryArray.length > 0) {
+  const lastArrayItem = searchHistoryArray.length - 1;
+  getResults(searchHistoryArray[lastArrayItem].lat, searchHistoryArray[lastArrayItem].lon, false);
+} else {
+  getApproximateLocation();
+}
 
 
 
-  //! zoom notes from Nathan
-  //! var apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=imperial&exclude=minutely,hourly&appid=${weatherApiKey}`;

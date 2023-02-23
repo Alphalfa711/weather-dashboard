@@ -21,11 +21,11 @@
 
 <body>
   <div class="container px-0" id="container">
-    <header class="d-flex align-items-center border-lg rounded-lg dark- m-0 p-3">
+    <header class="d-flex align-items-center border-lg rounded-lg dark- m-0 px-3 pt-4">
     <!-- Hamburger style button -->
     <button class="btn d-lg-none text-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive"
       aria-controls="offcanvasResponsive"><i class="fa-solid fa-bars"></i></button>    
-    <h2 class="d-none d-lg-inline-block fw-bold p-2- m-0 ">Weather Dashboard</h2>
+    <h2 class="d-none d-lg-inline-block fw-bold p-3- m-0 ">Weather Dashboard</h2>
   </header>
     <div class="row ">
       <!-- <div class="col-3"> -->
@@ -39,7 +39,7 @@
               data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
           </div>
           <!-- Search menu goes here -->
-          <div class="offcanvas-body ms-0 ms-lg-3"> 
+          <div class="offcanvas-body ms-0 ms-lg-3-"> 
             <div class="mt-lg-4- d-flex flex-column pt-4" id="search-container">
               <div class="input-group mb-3">
                 <input id='search-text' type="text" class="form-control border border-secondary" autocomplete="off" placeholder="Search location"
@@ -64,12 +64,12 @@
         </section>
       </div>
       <!-- <div class="col-lg-8"> -->
-      <section class="col"> <!--bg-primary-->
+      <section class="col p-0-">
       <!-- Weather results -->
       <!-- <section id="current-weather-container" class="mt-4 ms-lg-4 border border-dark rounded shadow dark text-light"> -->
       <!-- <section id="current-weather-container" class="mt-4 ms-lg-4 border border-dark rounded shadow  "> -->
       <!-- <section id="current-weather-container" class="mt-4"> -->
-        <article id="current-weather-container" class="mt-lg-4- pb-5 pb-lg-0- shadow- dark- transparent-">
+        <article id="current-weather-container" class="mt-lg-4- pb-5 pb-lg-0- shadow- rounded- dark- transparent-">
           <!-- card content -->
           <!-- <div class="mx-auto current-weather-card p-3 border border-dark rounded shadow"> -->
           <div class="mx-auto current-weather-card p-4">
@@ -80,22 +80,14 @@
               <div class="d-flex flex-column justify-content-center">
                 <p class="mb-3 lh-1 fs-1" id="current-city"></p>
                 <p class="mb-1 lh-1 fs-6" id="current-description"></p>
-                <!-- <p class="m-0 lh-1 fs-6"><span id="current-high"></span>&#176 / <span id="current-low"></span>&#176</p> -->
               </div>
               <!-- Current weather icon container -->
               <img id="current-weather-icon" style="transform: scale(1.4);">
-              <!-- <div>
-                <i class="fa-regular fa-star"></i>
-              </div> -->
             </div>      
-            <!-- <div id="current-weather-body" class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center bg-warning"> -->
             <div id="current-weather-body" class="d-flex flex-column flex-sm-row align-items-md-center ">
               <div>
                 <p class="m-0 lh-1" style="font-size: 7rem;"><span id="current-temp"></span>&#176</p>
               </div>
-              <!-- <div class="mt-5 mt-md-0 "> -->
-              <!-- <table class="table table-dark table-borderless table-sm ms-md-4"> -->
-              <!-- <table class="table table-borderless text-light table-sm ms-md-4"> -->
               <table class="table table-borderless table-sm m-0 ms-md-4" >
                 <tbody>
                   <tr>
@@ -122,13 +114,47 @@
         <!-- End of current weather card -->
         <!-- 5 Day Forecast -->
         <article class="transparent rounded p-4">
-          <h3 class="p-4- dark- fw-bold" >5-Day Forecast:</h3>
+          <h3 class="p-4- dark- fw-bold text-decoration-underline-" >5-Day Forecast:</h3>
           <!-- Cards prototype -->
-          <div>
-            <h3>9/14/2022</h3>
-            <h3>icon</h3>
-          </div>
-
+          <!-- <div class="row"> -->
+            <!-- <div class="col bg-light- transparent- dark- future-day-container shadow rounded p-2 d-flex gap-3"> -->
+              <!-- <div class="d-flex flex-column justify-content-between- align-items-center- future-day-container- transparent shadow rounded p-2 gap-5-">
+                <div class="d-flex flex-column- justify-content-between- align-items-center- future-day-container- shadow- rounded- p-2- gap-3 border-bottom">
+                  <p class="m-0 fs-5">Friday</p>
+                  <div class="d-flex gap-3">
+                    <p class="m-0 fs-5">icon icon</p>
+                    <p class="m-0 fs-5">34&#176 12&#176</p>
+                  </div>
+                </div>              
+                <div class="d-flex flex-column- justify-content-between- align-items-center future-day-container- shadow- rounded- p-2- gap-3 border-bottom">
+                  <p class="m-0 fs-5">Saturday</p>
+                  <div class="d-flex gap-3">
+                    <p class="m-0 fs-5">icon icon</p>
+                    <p class="m-0 fs-5">34&#176 12&#176</p>
+                  </div>
+                </div>  
+              </div>               -->
+              
+              <div class="row pb-3 align-items-center border-bottom">
+                <!-- <div class="col-12 col-md-6 d-flex justify-content-between align-items-center-"> -->
+                <div class="col-12 col-md-2 py-1"><p class="m-0 fs-6 text-warning">Friday</p></div>
+                <div class="col-6 col-md-4- col-md-2 py-1"><p class="m-0 fs-6 text-center">icon icon</p></div>
+                <div class="col-6 col-md-4- col-md-2 py-1"><p class="m-0 fs-6 text-center text-warning-">34&#176<span class="text-info-"> 12&#176</span></p></div>
+                <!-- </div> -->
+                <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                  <p class="m-0 fs-6">Humidity</p>
+                  <p class="m-0 fs-6">70%</p>
+                </div>
+                <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                  <p class="m-0 fs-6">Wind</p>
+                  <p class="m-0 fs-6">7MPS</p>
+                </div>
+                <div class="col-4 col-md-2 d-flex flex-column align-items-center  py-1">
+                  <p class="m-0 fs-6">Pressure</p>
+                  <p class="m-0 fs-6">1014hPs</p>
+                </div>
+              </div>
+              
 
 
         <article>
