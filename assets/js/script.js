@@ -256,11 +256,12 @@ searchHistoryContainer.addEventListener('click', function (event) {
   }
 })
 
+// Update local storage
 function updateLocalStorage() {
   localStorage.setItem("searchHistory", JSON.stringify(searchHistoryArray));
 }
 
-
+// Get cities stored in local storage and append them as list items in search container
 function renderLocalStorage() {
   searchHistoryList.innerHTML = "";
 
