@@ -221,8 +221,8 @@ function renderFutureResults(futureDataPoint, index) {
     const forecastTempSection = document.createElement('div');
           forecastTempSection.setAttribute('class', 'col-6 col-md-2 order-2 d-flex flex-column align-items-center');
       const forecastTemp = document.createElement('p');
-            forecastTemp.setAttribute('class', 'm-0 fs-3 text-center');
-            forecastTemp.textContent = parseInt(futureDataPoint.main.temp);
+            forecastTemp.setAttribute('class', 'm-0 fs-2 text-center');
+            forecastTemp.innerHTML = parseInt(futureDataPoint.main.temp) + ('&#176') + "F";
 
           forecastTempSection.appendChild(forecastTemp);
           forecastRow.appendChild(forecastTempSection);
