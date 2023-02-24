@@ -109,3 +109,7 @@ body {
 footer {
     background-color: var(--dark-background-gradient);
 }
+
+#forcast-container > div:not(:last-child) {
+    border-bottom: 1px solid var(--dark-background-font);
+}

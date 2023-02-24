@@ -97,20 +97,7 @@ function getResults(lat, long, updateSearchHistory) {
   let currentApi = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
   
   fetch(currentApi, {
-    // method: "GET",
-    // headers: {
-      // cache: 'no-store'
-      // "Cache-Control": 'no-store ',
-    // }
-  // fetch(currentApi, {
-    cache: 'reload'
-    // headers: {
-    // "Cache-Control": 'no-cache, no-store'
-    // cache: 'no-cache'
-    // cache: 'no-store'
-    // "Cache-Control": "no-store, no-cache"
-    // "Cache-Control": "max-age=0"
-    // }
+    cache: 'reload',
     })
     .then(function (response) {
       if (response.ok) {
@@ -142,6 +129,7 @@ function getResults(lat, long, updateSearchHistory) {
           // Show time of fetch
           // Source https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
           let fetchedTime = new Date(data.dt * 1000).toLocaleTimeString();
+          // console.log("🚀 ~ file: script.js:145 ~ fetchedTime:", fetchedTime)
           let fetchedDate = new Date(data.dt * 1000).toLocaleDateString();
           // Update DOM elements
           renderCurrentResults(data, fetchedTime, fetchedDate);
@@ -163,7 +151,8 @@ function getResults(lat, long, updateSearchHistory) {
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (futureData) {
-            console.log("🚀 ~ file: script.js:157 ~ futureData", futureData)
+            // Clear forcast DOM elements
+            forecastContainer.innerHTML = "";        
             formatForcastData(futureData);
           });
         }
@@ -193,48 +182,113 @@ function renderCurrentResults(data, timeF, dateF) {
 
 function formatForcastData(futureData) {
 
-  const day1 = [];
-  const day2 = [];
-  const day3 = [];
-  const day4 = [];
-  const day5 = [];
+  const futureDataPoints = futureData.list.filter(element => {
+    return element.dt_txt.endsWith("12:00:00");
+    })
 
-  // day1.push(futureData.list[0])
-  futureData.list.forEach((element, index) => {
-    if (index < 8) {
-      day1.push(element);
-    } else if (index < 16) {
-      day2.push(element);
-    } else if (index < 24) {
-      day3.push(element);
-    } else if (index < 32) {
-      day4.push(element);
-    } else {
-      day5.push(element);
-    }
-  });
-  
-  console.log(day1)
-  console.log(day2)
-  console.log(day3)
-  console.log(day4)
-  console.log(day5)
-
-
-  // renderFutureResults(futureData);
+    futureDataPoints.forEach((element, index) => {
+      renderFutureResults(element, index);
+    })
 }
 
 
 
 
-function renderFutureResults(futureData) {
-  const forcastListArray = futureData.list
-  // console.log("🚀 ~ file: script.js:196 ~ renderFutureResults ~ forcastListArray:", forcastListArray)
-  // console.log(futureData.city)
+function renderFutureResults(futureDataPoint, index) {
+  console.log("🚀 ~ file: script.js:198 ~ renderFutureResults ~ futureDataPoint:", futureDataPoint)
+  // Create DOM elements
+  const forecastRow = document.createElement('div');
+  if (index < 4) {
+    forecastRow.setAttribute('class', 'row py-3 py-md-0 align-items-center')
+  } else {
+    forecastRow.setAttribute('class', 'row py-3 py-md-0 align-items-center')
+  }
 
+    const forecastDateSection = document.createElement('div')
+          forecastDateSection.setAttribute('class', 'col-12 col-md-2 order-1 d-flex flex-md-column gap-4 gap-md-0');
 
+      const forecastDay = document.createElement('p');
+            forecastDay.setAttribute('class', 'm-0 fs-6 text-warning');
+            forecastDay.textContent = dayjs(futureDataPoint.dt * 1000).format('dddd');
+      const forecastDate = document.createElement('p');
+            forecastDate.setAttribute('class', 'm-0 fs-6 text-warning');
+            forecastDate.textContent = dayjs(futureDataPoint.dt * 1000).format('MMM DD');
+
+      forecastDateSection.appendChild(forecastDay);
+      forecastDateSection.appendChild(forecastDate);
+    
+      // Temp section
+    const forecastTempSection = document.createElement('div');
+          forecastTempSection.setAttribute('class', 'col-6 col-md-2 order-2 d-flex flex-column align-items-center');
+      const forecastTemp = document.createElement('p');
+            forecastTemp.setAttribute('class', 'm-0 fs-3 text-center');
+            forecastTemp.textContent = parseInt(futureDataPoint.main.temp);
+
+          forecastTempSection.appendChild(forecastTemp);
+          forecastRow.appendChild(forecastTempSection);
+    
+    // Icon section
+    const forecastIconSection = document.createElement('div');
+          forecastIconSection.setAttribute('class', 'col-6 col-md-2 order-3 d-flex flex-column align-items-center');
+    const forecastIcon = document.createElement('img');
+          forecastIcon.setAttribute('class', 'm-0 fs-3 text-center');
+          forecastIcon.setAttribute('alt', 'weather icon');
+          forecastIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + futureDataPoint.weather[0].icon + '@2x.png');
+
+          forecastIconSection.appendChild(forecastIcon);
+          forecastRow.appendChild(forecastIconSection); 
+
+    // Humidity section
+    const forecastHumiditySection = document.createElement('div');
+          forecastHumiditySection.setAttribute('class', 'col-4 col-md-2 order-4 d-flex flex-column align-items-center');
+
+      const forecastHumidityText = document.createElement('p');
+            forecastHumidityText.setAttribute('class', 'm-0 fs-6');
+            forecastHumidityText.textContent = "Humidity";
+      const forecastHumidityValue = document.createElement('p');
+            forecastHumidityValue.setAttribute('class', 'm-0 fs-6');
+            forecastHumidityValue.textContent = futureDataPoint.main.humidity + '%';
+
+            forecastHumiditySection.appendChild(forecastHumidityText);
+            forecastHumiditySection.appendChild(forecastHumidityValue);
+    
+            forecastRow.appendChild(forecastHumiditySection); 
+
+      // Rain section
+      const forecastWindSection = document.createElement('div');
+            forecastWindSection.setAttribute('class', 'col-4 col-md-2 order-5 d-flex flex-column align-items-center');
   
-  // const forcastDay = futureData
+        const forecastWindText = document.createElement('p');
+              forecastWindText.setAttribute('class', 'm-0 fs-6');
+              forecastWindText.textContent = "Wind";
+        const forecastWindValue = document.createElement('p');
+              forecastWindValue.setAttribute('class', 'm-0 fs-6');
+              forecastWindValue.textContent = futureDataPoint.wind.speed + 'MPH';
+  
+              forecastWindSection.appendChild(forecastWindText);
+              forecastWindSection.appendChild(forecastWindValue);
+      
+              forecastRow.appendChild(forecastWindSection); 
+
+      // Rain section
+      const forecastPressureSection = document.createElement('div');
+            forecastPressureSection.setAttribute('class', 'col-4 col-md-2 order-5 d-flex flex-column align-items-center');
+  
+        const forecastPressureText = document.createElement('p');
+              forecastPressureText.setAttribute('class', 'm-0 fs-6');
+              forecastPressureText.textContent = "Pressure";
+        const forecastPressureValue = document.createElement('p');
+              forecastPressureValue.setAttribute('class', 'm-0 fs-6');
+              forecastPressureValue.textContent = futureDataPoint.main.pressure + 'hPs';
+  
+              forecastPressureSection.appendChild(forecastPressureText);
+              forecastPressureSection.appendChild(forecastPressureValue);
+      
+              forecastRow.appendChild(forecastPressureSection); 
+
+      forecastRow.appendChild(forecastDateSection);
+
+      forecastContainer.appendChild(forecastRow);
 }
 
 /**

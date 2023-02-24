@@ -23,12 +23,4 @@ const currentPressure = document.getElementById('current-pressure');
 const currentWind = document.getElementById('current-wind'); 
 
 // Forcast weather elements
-// day1-day
-// day1-date
-// day1-icon-day
-// day1-icon-night
-// day1-temp-day
-// day1-temp-night
-// day1-humidity
-// day1-wind
-// day1-pressure
+const forecastContainer = document.getElementById('forcast-container');
