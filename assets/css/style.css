@@ -1,88 +1,48 @@
 :root {
-    /* --dark-background: #474E68; */
-    /* --dark-background: #5f6a8f; */
     --dark-background: #7B819D;
-    /* --dark-background-gradient: #393d4e; */
     --dark-background-gradient: #2d303d;
     --dark-background-font: #e5e1e1;
-    /* --dark-background-font: #f9f9fa; */
-    /* --light-background: #c5c5c5; */
-    /* --light-background: #ececec; */
     --light-background: #eeeff8;
     --font-color: #1f1f29;
 }
 
 body {
-    /* background-color: #F5F5F5; */
-    /* background-color: var(--light-background); */
     background-image: linear-gradient(90deg, var(--dark-background-gradient), var(--dark-background));
     color: var(--dark-background-font);
-    
-
-    /* background-color: var(--dark-background-font); */
-    /* color: var(--font-color); */
-    /* font-family: sans-serif;     */
     font-family: 'Questrial', sans-serif;
-    /* background-color: var(--dark-background); */
 }
 
 .dark {
-    /* background-color: var(--dark-background); */
     background-image: linear-gradient(90deg, var(--dark-background-gradient), var(--dark-background));
-    /* background-color: rgba(255, 255, 255, .3); */
     color: var(--dark-background-font);
-    /* color: white; */
 }
 
 .light {
     background-color: var(--light-background);
 }
 
-
-/* #searchHistory-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-} */
-
 #search-history-list li {
     border: 1px solid var(--font-color);
     border-radius: 5px;
-    /* transition: .5s; */
 }
-
-/* #searchHistory-list li i {
-    float: right;
-    border: none; */
-    /* background-color: rgba(255, 255, 255, 0); */
-/* } */
 
 #search-history-list li:hover {
     cursor: pointer;
-    /* color: #f0ad4e; */
     border-color: #f0ad4e;
     translate: 5px;
-    /* transition: .5s; */
 }
 
 #search-history-list li i:hover {
     color: #F05454;
 }
 
-/* #current-weather-container {
-    max-width: 500px;
-} */
-
 .current-weather-card {
-    /* max-width: 400px; */
     max-width: 420px;
 }
 
 .table {
-    /* color: var(--font-color); */
     color: var(--dark-background-font);
     max-width: 320px;
-    /* max-width: 120px; */
 }
 
 .table td {
@@ -95,7 +55,6 @@ body {
 }
 
 .transparent {
-    /* background-color: rgba(0, 0, 0, .1); */
     background-color: rgba(255, 255, 255, .1);
     color: var(--dark-background-font);
 }
@@ -106,10 +65,10 @@ body {
     max-width: 300px;
 }
 
-footer {
-    background-color: var(--dark-background-gradient);
-}
-
 #forcast-container > div:not(:last-child) {
     border-bottom: 1px solid var(--dark-background-font);
+}
+
+footer {
+    background-color: var(--dark-background-gradient);
 }

@@ -16,20 +16,21 @@
   <link rel="stylesheet" href="./assets/css/style.css">
   <!-- Fontawsome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-  <title>Weather</title>
+  <title>Weather Dashboard</title>
+  <!-- Tab icon - Source -->
+  <!-- https://www.w3schools.com/howto/howto_html_favicon.asp -->
+  <link rel="icon" type="image/x-icon" href="./assets/icons/cloud-sun-solid.svg">
 </head>
-
 <body>
   <div class="container px-0" id="container">
     <header class="d-flex align-items-center border-lg rounded-lg dark- m-0 px-3 pt-4">
-    <!-- Hamburger style button -->
-    <button class="btn d-lg-none text-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive"
-      aria-controls="offcanvasResponsive"><i class="fa-solid fa-bars"></i></button>    
-    <h2 class="d-none d-lg-inline-block fw-bold p-3- m-0 ">Weather Dashboard</h2>
+      <!-- Hamburger style button -->
+      <button class="btn d-lg-none text-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive"
+        aria-controls="offcanvasResponsive"><i class="fa-solid fa-bars"></i></button>    
+      <h2 class="d-none d-lg-inline-block fw-bold p-3- m-0 ">Weather Dashboard</h2>
   </header>
     <div class="row m-0 p-0 ">
-      <!-- <div class="col-3"> -->
-      <div class="col-md-12 col-lg-4 col-xl-3"> <!-- bg-warning-->
+      <div class="col-md-12 col-lg-4 col-xl-3">
       <!-- Offcanvas modal bootstrap -->
         <section class="offcanvas-lg offcanvas-start" tabindex="-1" id="offcanvasResponsive"
           aria-labelledby="offcanvasResponsiveLabel">
@@ -50,9 +51,9 @@
               </div>                  
               <!-- Search button -->
               <button class="btn btn-warning w-100 border border-secondary" id="search-btn">Search</button>
-              <!-- Search confirmation -->
-              <ul class="list-group" id="search-results-list">
-              </ul>
+              <!-- Search confirmation / in workks -->
+              <!-- <ul class="list-group" id="search-results-list">
+              </ul> -->
               <!-- searchHistory -->
               <article class='mt-4 pt-3 border-top border-light' id="search-history-container">
                 <h4>Searched locations</h4>
@@ -63,15 +64,10 @@
           </div>
         </section>
       </div>
-      <!-- <div class="col-lg-8"> -->
       <section class="col p-0- m-0-">
       <!-- Weather results -->
-      <!-- <section id="current-weather-container" class="mt-4 ms-lg-4 border border-dark rounded shadow dark text-light"> -->
-      <!-- <section id="current-weather-container" class="mt-4 ms-lg-4 border border-dark rounded shadow  "> -->
-      <!-- <section id="current-weather-container" class="mt-4"> -->
         <article id="current-weather-container" class="mt-lg-4- pb-5 pb-lg-0- shadow- rounded- dark- transparent-">
-          <!-- card content -->
-          <!-- <div class="mx-auto current-weather-card p-3 border border-dark rounded shadow"> -->
+          <!-- current weather card content -->
           <div class="mx-auto current-weather-card p-4">
             <div class="mb-3 pb-2 border-bottom text-center">
               <p class="m-0">Updated <span id="fetch-time"></span> on <span id="fetch-date"></span></p>
@@ -115,8 +111,8 @@
         <!-- 5 Day Forecast -->
         <article class="transparent rounded px-4 pt-4">
           <h3 class="fw-bold m-0" >5-Day Forecast:</h3>
-          <!-- Day 1 -->
           <div id="forcast-container">
+            <!-- 5 day forecase content -->
             <!-- forcastRow -->           
           </div>
         <article>
@@ -125,10 +121,9 @@
   </div>
   <footer class="p-4 mt-5 text-center">
     <h6>Created by Mirek Nyzio</h6>
-    <!-- <h6>Full Stack Dev</h6> -->
   </footer>
   <!-- Scripts --> 
-  <script src="./assets/js/elements.js"></script>
+  <script src="./assets/js/staticElements.js"></script>
   <script src="./assets/js/script.js"></script>
   <!-- dayjs -->
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>

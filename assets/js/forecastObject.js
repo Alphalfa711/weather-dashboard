@@ -1,3 +1,6 @@
+/**
+ * Forcast json object template
+ */
 const forcastObject = {
     "cod": "200",
     "message": 0,

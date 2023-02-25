@@ -3,9 +3,7 @@
  * source https://www.geolocation-db.com/documentation
  * @param {object} data 
  */
-
 function callback(data) {
-  console.log("🚀 ~ file: script.js:8 ~ callback ~ data", data)
   getResults(data.latitude, data.longitude, false);
 }
 
@@ -29,9 +27,7 @@ locationBtn.addEventListener("click", () => {
 
   navigator.geolocation.getCurrentPosition((position) => {
     let lat = position.coords.latitude;
-    console.log("🚀 ~ file: script.js:35 ~ navigator.geolocation.getCurrentPosition ~ lat", lat)
     let long = position.coords.longitude;
-    console.log("🚀 ~ file: script.js:37 ~ navigator.geolocation.getCurrentPosition ~ long", long)
     // Pass current latitude and longitude to function that will handle API request
     getResults(lat, long, false);
   });
@@ -42,9 +38,7 @@ locationBtn.addEventListener("click", () => {
  * If field is not empty pass it's value to function that handle API request
  */
 searchBtn.addEventListener('click', function () {
-
   var query = searchText.value;
-  
   if (query) {
     // searchText.value = "";
     getCoordinates(query);
@@ -69,20 +63,25 @@ function getCoordinates(searchQuery) {
         throw (error);
       }
     }).then(function (data) {
-      console.log("🚀 ~ file: script.js:116 ~ data", data)
-      //! Test pass first results to open weather
-      if (data.length === 1) {
-        searchText.value = "";
-        getResults(data[0].lat, data[0].lon, true)  
-      } else {
-        searchText.value = "";
-        getResults(data[0].lat, data[0].lon, true)  
+      /**
+       * data object returns up to 5 city object if search city excists in multiple states or countries
+       * MVP
+       * Test pass first results to open weather
+       */
+      searchText.value = "";
+      getResults(data[0].lat, data[0].lon, true)  
+      // if (data.length === 1) {
+      //   searchText.value = "";
+      //   getResults(data[0].lat, data[0].lon, true)  
+      // } else {
+      //   searchText.value = "";
+      //   getResults(data[0].lat, data[0].lon, true)  
         // data.forEach(element => {
         //   let resultOption = document.createElement('option');
         //       resultOption.setAttribute('value', element.name);
         //   searchDataList.appendChild(resultOption);
         // });
-      }      
+      // }      
     })
     .catch(function (error) {
       alert("Unable to connect to Open Weather");
@@ -90,7 +89,13 @@ function getCoordinates(searchQuery) {
     });
 };
 
-
+/**
+ * 
+ * @param {float} lat 
+ * @param {float} long 
+ * @param {boolean} updateSearchHistory 
+ * if true save search city in local storage
+ */
 function getResults(lat, long, updateSearchHistory) {
 
   // current weather API call    
@@ -102,23 +107,23 @@ function getResults(lat, long, updateSearchHistory) {
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
-          // console.log("🚀 ~ file: script.js:157 ~ data", data)
-          
-          let locationObject = {
-            name: data.name,
-            lat: data.coord.lat,
-            lon: data.coord.lon
-          }
 
+          // Update local storage
           if (updateSearchHistory) {
-
+            // Object that will be added to local storage
+            let locationObject = {
+              name: data.name,
+              lat: data.coord.lat,
+              lon: data.coord.lon
+            }
+            // Check to see if search city already excists in local storage
             let newItem = true;
             searchHistoryArray.forEach(element => {
               if (data.name === element.name) {
                 newItem = false;
               }
             });
-
+            // If user search for new city update and render local storage
             if (newItem) {
               searchHistoryArray.push(locationObject);
               updateLocalStorage();
@@ -129,7 +134,6 @@ function getResults(lat, long, updateSearchHistory) {
           // Show time of fetch
           // Source https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
           let fetchedTime = new Date(data.dt * 1000).toLocaleTimeString();
-          // console.log("🚀 ~ file: script.js:145 ~ fetchedTime:", fetchedTime)
           let fetchedDate = new Date(data.dt * 1000).toLocaleDateString();
           // Update DOM elements
           renderCurrentResults(data, fetchedTime, fetchedDate);
@@ -142,30 +146,27 @@ function getResults(lat, long, updateSearchHistory) {
 
     // Forcast API call
     // Forcast call
-    
-  let forcastApiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
-    fetch(forcastApiUrl, {
-      cache: 'reload'
-      // cache: 'no-cache'
+    let forcastApiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&lang=en&appid=e97ee8621afbdf55e3cfc6d7bc09d848&units=imperial';
+      fetch(forcastApiUrl, {
+        cache: 'reload'
+        })
+        .then(function (response) {
+          if (response.ok) {
+            response.json().then(function (futureData) {
+              // Clear forcast DOM elements
+              forecastContainer.innerHTML = "";        
+              formatForcastData(futureData);
+            });
+          }
       })
-      .then(function (response) {
-        if (response.ok) {
-          response.json().then(function (futureData) {
-            // Clear forcast DOM elements
-            forecastContainer.innerHTML = "";        
-            formatForcastData(futureData);
-          });
-        }
-    })
 }
 
 
 /**
- * Update elements on the page
+ * Update elements on the page in current weather card
  * @param {object} data 
  */
 function renderCurrentResults(data, timeF, dateF) {
-
   fetchDate.textContent = dateF;
   fetchTime.textContent = timeF;
   currentCity.textContent = data.name;
@@ -177,33 +178,29 @@ function renderCurrentResults(data, timeF, dateF) {
   currentHumidity.textContent = data.main.humidity;
   currentPressure.textContent = data.main.pressure;
   currentWind.textContent = data.wind.speed;
-  
 }
 
-function formatForcastData(futureData) {
 
+function formatForcastData(futureData) {
+  // Retrieve element at noon time for each day
   const futureDataPoints = futureData.list.filter(element => {
     return element.dt_txt.endsWith("12:00:00");
     })
 
-    futureDataPoints.forEach((element, index) => {
-      renderFutureResults(element, index);
+    // Display results from each day at noon time
+    futureDataPoints.forEach(element => {
+      renderFutureResults(element);
     })
 }
 
 
-
-
-function renderFutureResults(futureDataPoint, index) {
-  console.log("🚀 ~ file: script.js:198 ~ renderFutureResults ~ futureDataPoint:", futureDataPoint)
+function renderFutureResults(futureDataPoint) {
   // Create DOM elements
   const forecastRow = document.createElement('div');
-  if (index < 4) {
-    forecastRow.setAttribute('class', 'row py-3 py-md-0 align-items-center')
-  } else {
-    forecastRow.setAttribute('class', 'row py-3 py-md-0 align-items-center')
-  }
+        forecastRow.setAttribute('class', 'row py-3 py-md-0 align-items-center')
 
+    // Day / Date Section
+    // Build
     const forecastDateSection = document.createElement('div')
           forecastDateSection.setAttribute('class', 'col-12 col-md-2 order-1 d-flex flex-md-column gap-4 gap-md-0');
 
@@ -213,9 +210,11 @@ function renderFutureResults(futureDataPoint, index) {
       const forecastDate = document.createElement('p');
             forecastDate.setAttribute('class', 'm-0 fs-6 text-warning');
             forecastDate.textContent = dayjs(futureDataPoint.dt * 1000).format('MMM DD');
-
+      // Append
       forecastDateSection.appendChild(forecastDay);
       forecastDateSection.appendChild(forecastDate);
+
+      forecastRow.appendChild(forecastDateSection);
     
       // Temp section
     const forecastTempSection = document.createElement('div');
@@ -228,17 +227,19 @@ function renderFutureResults(futureDataPoint, index) {
           forecastRow.appendChild(forecastTempSection);
     
     // Icon section
+    // Build
     const forecastIconSection = document.createElement('div');
           forecastIconSection.setAttribute('class', 'col-6 col-md-2 order-3 d-flex flex-column align-items-center');
     const forecastIcon = document.createElement('img');
           forecastIcon.setAttribute('class', 'm-0 fs-3 text-center');
           forecastIcon.setAttribute('alt', 'weather icon');
           forecastIcon.setAttribute('src', 'http://openweathermap.org/img/wn/' + futureDataPoint.weather[0].icon + '@2x.png');
-
+    // Append
           forecastIconSection.appendChild(forecastIcon);
           forecastRow.appendChild(forecastIconSection); 
 
     // Humidity section
+    // Build
     const forecastHumiditySection = document.createElement('div');
           forecastHumiditySection.setAttribute('class', 'col-4 col-md-2 order-4 d-flex flex-column align-items-center');
 
@@ -248,29 +249,31 @@ function renderFutureResults(futureDataPoint, index) {
       const forecastHumidityValue = document.createElement('p');
             forecastHumidityValue.setAttribute('class', 'm-0 fs-6');
             forecastHumidityValue.textContent = futureDataPoint.main.humidity + '%';
-
+      // Append
             forecastHumiditySection.appendChild(forecastHumidityText);
             forecastHumiditySection.appendChild(forecastHumidityValue);
     
             forecastRow.appendChild(forecastHumiditySection); 
 
       // Rain section
+      // Build
       const forecastWindSection = document.createElement('div');
             forecastWindSection.setAttribute('class', 'col-4 col-md-2 order-5 d-flex flex-column align-items-center');
-  
+
         const forecastWindText = document.createElement('p');
               forecastWindText.setAttribute('class', 'm-0 fs-6');
               forecastWindText.textContent = "Wind";
         const forecastWindValue = document.createElement('p');
               forecastWindValue.setAttribute('class', 'm-0 fs-6');
               forecastWindValue.textContent = futureDataPoint.wind.speed + 'MPH';
-  
+      // Append
               forecastWindSection.appendChild(forecastWindText);
               forecastWindSection.appendChild(forecastWindValue);
       
               forecastRow.appendChild(forecastWindSection); 
 
       // Rain section
+      // Build
       const forecastPressureSection = document.createElement('div');
             forecastPressureSection.setAttribute('class', 'col-4 col-md-2 order-5 d-flex flex-column align-items-center');
   
@@ -280,24 +283,24 @@ function renderFutureResults(futureDataPoint, index) {
         const forecastPressureValue = document.createElement('p');
               forecastPressureValue.setAttribute('class', 'm-0 fs-6');
               forecastPressureValue.textContent = futureDataPoint.main.pressure + 'hPs';
-  
+      // Append
               forecastPressureSection.appendChild(forecastPressureText);
               forecastPressureSection.appendChild(forecastPressureValue);
       
               forecastRow.appendChild(forecastPressureSection); 
 
-      forecastRow.appendChild(forecastDateSection);
-
+      // Display generated DOM elements on page
       forecastContainer.appendChild(forecastRow);
 }
 
 /**
  * Search searchHistory
  */
-
 searchHistoryContainer.addEventListener('click', function (event) {
   const element = event.target;
-
+  
+  // X icon click event - delete from local storage
+  // li element click event - fetch weather for city in list item
   if (element.matches('i') === true) {
     const index = element.parentElement.getAttribute("data-index");
     searchHistoryArray.splice(index, 1);
@@ -321,6 +324,8 @@ function renderLocalStorage() {
 
   searchHistoryArray = JSON.parse(localStorage.getItem("searchHistory"));
 
+  // Dynamically load items from local storage
+  // pass lat and long values from each object in local storage to data attributes
   if (searchHistoryArray) {
     searchHistoryArray.forEach((element, index) => {
       const searchHistoryListItem = document.createElement('li')
@@ -335,17 +340,27 @@ function renderLocalStorage() {
       searchHistoryListItem.appendChild(closeIcon);
       searchHistoryList.appendChild(searchHistoryListItem)
     });
-  } else {
+  } else {    
     searchHistoryArray = [];
   }
 }
 
-
-renderLocalStorage();
-
-if (searchHistoryArray.length > 0) {
-  const lastArrayItem = searchHistoryArray.length - 1;
-  getResults(searchHistoryArray[lastArrayItem].lat, searchHistoryArray[lastArrayItem].lon, false);
-} else {
-  getApproximateLocation();
+/**
+ * Define staatup behaviour / routine
+ * Check to see if local storage excist and if yes display weather for city that was searched last
+ * If no local storage get approximate user location and display weather in the area
+ */
+function init() {
+  renderLocalStorage();
+  
+  if (searchHistoryArray.length > 0) {
+    const lastArrayItem = searchHistoryArray.length - 1;
+    getResults(searchHistoryArray[lastArrayItem].lat, searchHistoryArray[lastArrayItem].lon, false);
+  } else {
+    getApproximateLocation();
+  }
 }
+
+// Initialize startup routine
+init();
+

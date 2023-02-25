@@ -1,3 +1,6 @@
+/**
+ * Current weather json object template
+ */
 let weatherObject = {
     "coord": {
         "lon": -74.3236,
