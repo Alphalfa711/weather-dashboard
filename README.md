@@ -1,53 +1,72 @@
-# 06 Server-Side APIs: Weather Dashboard
+# Weather dashboard
 
-## Your Task
+## Description 
+Weather dashboard enables users to get current weather and 5-day forecast for the city of their choice. User can either enter city name or click button on the side of the input for weather conditions near their locatiotion. This web application processes data received from multiple server-side API requests and dynamically updates elements on the page with JavaScript. Added Bootstrap as a CSS framework makes the web application  responsive, user friendly and visually appealing. 
 
-Third-party APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Developers are often tasked with retrieving data from another application's API and using it in the context of their own. Your challenge is to build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
-
-Use the [5 Day Weather Forecast](https://openweathermap.org/forecast5) to retrieve weather data for cities. The base URL should look like the following: `https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}`. After registering for a new API key, you may need to wait up to 2 hours for that API key to activate.
-
-**Hint**: Using the 5 Day Weather Forecast API, you'll notice that you will need to pass in coordinates instead of just a city name. Using the OpenWeatherMap APIs, how could we retrieve geographical coordinates given a city name?
-
-You will use `localStorage` to store any persistent data. For more information on how to work with the OpenWeather API, refer to the [Full-Stack Blog on how to use API keys](https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys).
+## Table of Contents 
+- [Weather dashboard](#weather-dashboard)
+  - [Description](#description)
+  - [Table of Contents](#table-of-contents)
+  - [User Story](#user-story)
+  - [Acceptance Criteria](#acceptance-criteria)
+  - [Installation](#installation)
+    - [Links](#Links) 
+    - [Frameworks: Bootstrap 5.3.0 (CSS)](#frameworks-bootstrap-530-css)
+    - [Application works with following APIs](#application-works-with-following-apis)
+  - [Usage](#usage)
+  - [Mock-up](#mock-up)
+  - [Credits](#credits)
+    - [Mirek Nyzio](#mirek-nyzio)
+  - [License](#license)
 
 ## User Story
+- AS A traveler
 
-```
-AS A traveler
-I WANT to see the weather outlook for multiple cities
-SO THAT I can plan a trip accordingly
-```
+  I WANT to see the weather outlook for multiple cities
+
+  SO THAT I can plan a trip accordingly
 
 ## Acceptance Criteria
+- GIVEN a weather dashboard with form inputs
+  - WHEN I search for a city
+  - THEN I am presented with current and future conditions for that city and that city is added to the search history
+  - WHEN I view current weather conditions for that city
+  - THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed
+  - WHEN I view future weather conditions for that city
+  - THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+  - WHEN I click on a city in the search history
+  - THEN I am again presented with current and future conditions for that city
 
-- [x] 
-  GIVEN a weather dashboard with form inputs
+## Installation 
 
-- [x] WHEN I search for a city
-- [x] THEN I am presented with current and future conditions for that city and that city is added to the search history
-- [x] WHEN I view current weather conditions for that city
-- [x] THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed
-- [x] WHEN I view future weather conditions for that city
-- [x] THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-- [x] WHEN I click on a city in the search history
-- [x] THEN I am again presented with current and future conditions for that city
+*Weather dashboard app runs in browser and feature dynamically updated HTML, CSS, and JavaScript.*
 
+#### Links 
+- **Link to deployed website:** [https://mnyzio.github.io/weather-dashboard/](https://mnyzio.github.io/weather-dashboard/)
+- **Link to GitHub repository:** [https://github.com/mnyzio/weather-dashboard](https://github.com/mnyzio/weather-dashboard)
 
-## Mock-Up
+#### Frameworks: [Bootstrap 5.3.0 (CSS)](https://getbootstrap.com/)
 
-The following image shows the web application's appearance and functionality:
+#### Application works with following APIs
 
-![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./assets/06-server-side-apis-homework-demo.png)
+- Open Weather - [https://openweathermap.org/](https://openweathermap.org/)
 
+## Usage 
+Upon entering the web application for the first time, you are presented with weather condition in your approximate vicinity. You can get a more precise reading of your location by allowing the web application to use your location to view weather conditions in your city. You can also search for weather conditions by typing any city in the world and then clicking the "Search" button. The page will then update with weather condition based on the city the user has entered. 
 
+Each time you search for a new city it will then save it's name in "Searched locations" section by utilizing local storage functionality and displayed as link on the page.
 
-### Technical Acceptance Criteria: 40%
+## Mock-up 
 
-* Satisfies all of the above acceptance criteria plus the following:
+![Weather Dashboard](/assets/gif/Weather%20Dashboard.gif) 
 
-  * Uses the OpenWeather API to retrieve weather data.
-
-  * Uses `localStorage` to store persistent data.
+## Credits 
 
 
+### Mirek Nyzio
 
+[https://github.com/mnyzio](https://github.com/mnyzio)
+
+## License
+
+MIT License
